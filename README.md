@@ -1,4 +1,4 @@
-# Overview
+# Morning Coffee
 
 This is a CRA app.
 
@@ -26,3 +26,7 @@ STORAGE_ACCOUNT=coffeevideo
 STORAGE_CONTAINER=raw
 API_DOMAIN="http://localhost:3000"
 ```
+
+## Mockup
+
+![](mockup.png)
