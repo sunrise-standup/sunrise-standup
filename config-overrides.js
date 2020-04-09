@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = function override(config, env) {
   // Extend the config to work with the videojs-record project without ejecting create react app.
@@ -14,6 +15,6 @@ module.exports = function override(config, env) {
     RecordRTC: "recordrtc",
   };
   config.resolve.alias = { ...config.resolve.alias, ...videojsAlias };
-  config.plugins.push(videojsPlugin);
+  config.plugins.push(new Dotenv(), videojsPlugin);
   return config;
 };
