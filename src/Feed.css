@@ -1,0 +1,41 @@
+#bumper {
+  height: 50px;
+}
+
+.feed {
+  margin-left: 39px;
+}
+
+.time-line {
+  height: 2px;
+  background-color: #e0672a;
+}
+
+.feed > .columns {
+  margin-left: 0px;
+}
+
+.column.feed-line {
+  padding: 0px;
+}
+
+.line-item:nth-child(odd) > .feed-line {
+  width: 300px;
+}
+
+.line-item:nth-child(even) > .feed-line {
+  width: 100px;
+}
+
+.line-item:nth-child(odd) > .feed-item {
+  width: 500px;
+}
+
+.feed-item {
+  max-width: 500px;
+  padding-bottom: 40px;
+}
+
+.line-item {
+  border-left: 2px solid #e0672a;
+}

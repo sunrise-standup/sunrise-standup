@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import "./Feed.css";
 
 const Feed = () => {
   const [updates, setUpdates] = useState([]);
@@ -16,15 +17,25 @@ const Feed = () => {
   }
 
   return (
-    <div>
-      <Link to="/post">Post Status Update</Link>
+    <div className="feed">
+      <div id="bumper" className="line-item"></div>
       {updates.map(({ name, video }) => (
-        <div>
-          <h2>{name}</h2>
-          <video controls width="250">
-            <source src={video} type="video/webm" />
-            Sorry, your browser doesn't support embedded videos.
-          </video>
+        <div className="columns line-item is-vcentered">
+          <div className="column is-narrow feed-line">
+            <div class="time-line"></div>
+          </div>
+          <div className="column feed-item">
+            <div className="">
+              <div className="box">
+                <div>
+                  <video controls width="450">
+                    <source src={video} type="video/webm" />
+                    Sorry, your browser doesn't support embedded videos.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       ))}
     </div>
