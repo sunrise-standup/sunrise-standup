@@ -20,15 +20,15 @@
 }
 
 .line-item:nth-child(odd) > .feed-line {
-  width: 300px;
+  width: 400px;
 }
 
 .line-item:nth-child(even) > .feed-line {
-  width: 100px;
+  width: 200px;
 }
 
 .line-item:nth-child(odd) > .feed-item {
-  width: 500px;
+  width: 700px;
 }
 
 .feed-item {
@@ -38,4 +38,8 @@
 
 .line-item {
   border-left: 2px solid #e0672a;
+}
+
+.created {
+  margin-left: 10px;
 }
