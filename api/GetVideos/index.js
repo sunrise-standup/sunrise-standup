@@ -1,4 +1,5 @@
 require("dotenv").config();
+const moment = require("moment");
 
 const { BlobServiceClient } = require("@azure/storage-blob");
 
@@ -29,6 +30,7 @@ module.exports = async function getBlobs(context, req) {
         video: `https://${accountName}.blob.core.windows.net/${containerName}/${encodeURIComponent(
           blob.name
         )}`,
+        created: moment(blob.properties.createdOn).fromNow(),
       })),
     },
   };
