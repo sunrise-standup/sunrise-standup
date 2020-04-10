@@ -1,5 +1,5 @@
 require("dotenv").config();
-const moment = require("moment");
+const Moment = require("moment");
 
 const { BlobServiceClient } = require("@azure/storage-blob");
 
@@ -22,6 +22,11 @@ module.exports = async function getBlobs(context, req) {
     blobs.push(blob);
   }
 
+  // order the blobs by date
+  blobs.sort((a, b) => {
+    return new Date(b.properties.createdOn) - new Date(a.properties.createdOn);
+  });
+
   context.res = {
     headers: { "Content-Type": "application/json" },
     body: {
@@ -30,7 +35,7 @@ module.exports = async function getBlobs(context, req) {
         video: `https://${accountName}.blob.core.windows.net/${containerName}/${encodeURIComponent(
           blob.name
         )}`,
-        created: moment(blob.properties.createdOn).fromNow(),
+        created: Moment(blob.properties.createdOn).fromNow(),
       })),
     },
   };
