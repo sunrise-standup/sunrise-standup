@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import "./App.css";
+import "./PostStatusUpdate.css";
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -96,16 +96,26 @@ class PostStatusUpdate extends Component {
   render() {
     return (
       <div>
-        <Link to="/">Home</Link>
-        <div data-vjs-player>
-          <video
-            id="myVideo"
-            ref={(node) => (this.videoNode = node)}
-            className="video-js vjs-default-skin"
-            playsInline
-          ></video>
+        <div className="section">
+          <div id="newPost">
+            <input
+              placeholder="Video title"
+              className="input is-large"
+              type="text"
+              value={this.state.name}
+              onChange={this.handleNameChange}
+            />
+            <hr />
+            <div data-vjs-player>
+              <video
+                id="myVideo"
+                ref={(node) => (this.videoNode = node)}
+                className="video-js vjs-default-skin"
+                playsInline
+              ></video>
+            </div>
+          </div>
         </div>
-        <input value={this.state.name} onChange={this.handleNameChange} />
       </div>
     );
   }

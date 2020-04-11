@@ -1,12 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./Nav.css";
+import NavButton from "./NavButton";
 
-const Nav = () => {
+const Nav = withRouter((props) => {
+  let { pathname } = props.location;
+  let buttonProps;
+
+  if (pathname === "/") {
+    buttonProps = { path: "/post", icon: "fa fa-video", text: "Post" };
+  } else {
+    buttonProps = {
+      path: "/",
+      icon: "fa fa-arrow-circle-left",
+      text: "Cancel",
+    };
+  }
+
   return (
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+    <nav className="navbar" role="navigation" aria-label="main navigation">
+      <div className="navbar-brand">
+        <a className="navbar-item" href="/">
           <img
             id="logo"
             src="logo.png"
@@ -16,20 +30,18 @@ const Nav = () => {
         </a>
       </div>
       <div className="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <Link class="button is-primary" to="/post">
-                <strong>
-                  <i id="videoIcon" class="fa fa-video"></i> Post Update
-                </strong>
-              </Link>
-            </div>
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <NavButton
+              path={buttonProps.path}
+              icon={buttonProps.icon}
+              text={buttonProps.text}
+            ></NavButton>
           </div>
         </div>
       </div>
     </nav>
   );
-};
+});
 
 export default Nav;

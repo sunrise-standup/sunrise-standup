@@ -20,7 +20,7 @@ import Record from "videojs-record/dist/videojs.record.js";
 const App = (props) => {
   return (
     <div>
-      <div class="container">
+      <div className="container">
         <Router>
           <Nav></Nav>
           <div>

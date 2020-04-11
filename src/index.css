@@ -4,11 +4,6 @@ body {
   min-height: 100vh;
 }
 
-/* change player background color */
-#myVideo {
-  background-color: #acb2f2;
-}
-
 #root {
   background-color: #f9f5f1;
 }

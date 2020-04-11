@@ -1,0 +1,11 @@
+/* change player background color */
+#newPost {
+  margin: auto;
+  width: 640px;
+}
+
+#myVideo {
+  background-color: #acb2f2;
+  width: 640px;
+  height: 480px;
+}
