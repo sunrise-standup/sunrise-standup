@@ -35,9 +35,11 @@ class PostStatusUpdate extends Component {
     super(props);
 
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
 
     this.state = {
       name: "",
+      isFinished: false,
     };
   }
   componentDidMount() {
@@ -69,7 +71,7 @@ class PostStatusUpdate extends Component {
       // recordedData is a blob object containing the recorded data that
       // can be downloaded by the user, stored on server etc.
       console.log("finished recording: ", this.player.recordedData);
-      uploadVideo(this.player.recordedData, this.state.name);
+      this.setState({ isFinished: true });
     });
 
     // error handling
@@ -93,9 +95,14 @@ class PostStatusUpdate extends Component {
       name: e.target.value,
     });
   }
+
+  handleSaveClick() {
+    uploadVideo(this.player.recordedData, this.state.name);
+  }
+
   render() {
     return (
-      <div>
+      <div className="section">
         <div className="section">
           <div id="newPost">
             <input
@@ -114,6 +121,19 @@ class PostStatusUpdate extends Component {
                 playsInline
               ></video>
             </div>
+            <hr />
+            {this.state.isFinished ? (
+              <div className="buttons">
+                <button
+                  className="button is-primary"
+                  onClick={this.handleSaveClick}
+                >
+                  Save
+                </button>
+              </div>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       </div>
