@@ -19,6 +19,14 @@
   padding: 0px;
 }
 
+.line-item {
+  border-left: 2px solid #e0672a;
+}
+
+.columns.line-item {
+  margin-left: 0;
+}
+
 .line-item:nth-child(odd) > .feed-line {
   width: 400px;
 }
@@ -33,13 +41,23 @@
 
 .feed-item {
   max-width: 500px;
+  min-height: 433px;
   padding-bottom: 40px;
-}
-
-.line-item {
-  border-left: 2px solid #e0672a;
 }
 
 .created {
   margin-left: 10px;
+}
+
+#loader {
+  width: 50vh;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.video {
+  height: 309px;
 }
