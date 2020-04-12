@@ -6,4 +6,6 @@ body {
 
 #root {
   background-color: #f9f5f1;
+  max-width: 1080px;
+  margin: auto;
 }
