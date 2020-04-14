@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import "./PostStatusUpdate.css";
 
@@ -38,8 +37,9 @@ class PostStatusUpdate extends Component {
     this.handleSaveClick = this.handleSaveClick.bind(this);
 
     this.state = {
-      name: "",
+      name: "User Name",
       isFinished: false,
+      isUploading: false,
     };
   }
   componentDidMount() {
@@ -96,8 +96,10 @@ class PostStatusUpdate extends Component {
     });
   }
 
-  handleSaveClick() {
-    uploadVideo(this.player.recordedData, this.state.name);
+  async handleSaveClick() {
+    this.setState({ isUploading: true });
+    await uploadVideo(this.player.recordedData, this.state.name);
+    this.props.history.push("/");
   }
 
   render() {
@@ -125,10 +127,17 @@ class PostStatusUpdate extends Component {
             {this.state.isFinished ? (
               <div className="buttons">
                 <button
-                  className="button is-primary"
+                  className={
+                    "button is-primary " +
+                    (this.state.isUploading ? "is-loading" : "")
+                  }
                   onClick={this.handleSaveClick}
+                  disabled={this.state.isUploading}
                 >
-                  Save
+                  <span class="icon">
+                    <i class="fas fa-share-square"></i>
+                  </span>
+                  <span>Post Update</span>
                 </button>
               </div>
             ) : (
