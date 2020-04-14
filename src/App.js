@@ -7,16 +7,13 @@ import Footer from "./Footer";
 import Feed from "./Feed";
 import PostStatusUpdate from "./PostStatusUpdate";
 
-import videojs from "video.js";
+import "video.js";
 import "video.js/dist/video-js.css";
-
-import RecordRTC from "recordrtc";
+import "recordrtc";
 import "webrtc-adapter";
 
-import { uploadVideo } from "./upload";
-
 import "videojs-record/dist/css/videojs.record.css";
-import Record from "videojs-record/dist/videojs.record.js";
+import "videojs-record/dist/videojs.record.js";
 
 const App = (props) => {
   return (
