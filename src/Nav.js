@@ -8,7 +8,7 @@ const Nav = withRouter((props) => {
   let buttonProps;
 
   if (pathname === "/") {
-    buttonProps = { path: "/post", icon: "fa fa-video", text: "Post" };
+    buttonProps = { path: "/post", icon: "fa fa-video", text: "New" };
   } else {
     buttonProps = {
       path: "/",

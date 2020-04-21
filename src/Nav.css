@@ -5,4 +5,9 @@
 
 #videoIcon {
   margin-right: 10px;
+  font-size: 1em;
+}
+
+.button-text {
+  font-weight: bold
 }

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 const NavButton = (props) => {
   return (
-    <Link className="button is-primary" to={props.path}>
-      <strong>
+    <Link className="button is-primary is-medium" to={props.path}>
+      <span class="has-text-weight-bold">
         <i id="videoIcon" className={props.icon}></i> {props.text}
-      </strong>
+      </span>
     </Link>
   );
 };
