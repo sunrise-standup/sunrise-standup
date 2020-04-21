@@ -36,8 +36,7 @@
 }
 
 .feed-item {
-  min-width: 700px;
-  max-width: 700px;
+  max-width: 570px;
   min-height: 200px;
   padding-bottom: 40px;
 }
@@ -55,6 +54,6 @@
   transform: translate(-50%, -50%);
 }
 
-/* .video {
-  height: 309px;
-} */
+.video {
+  max-width: 500px;
+}
