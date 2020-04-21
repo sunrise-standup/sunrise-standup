@@ -1,4 +1,4 @@
-# Morning Coffee
+# Sunrise Standup
 
 This is a CRA app.
 
