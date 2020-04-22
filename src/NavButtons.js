@@ -20,13 +20,13 @@ const NavButtons = withRouter((props) => {
     </Link>
   );
 
-  let loginButton = (
-    <Link className="button is-primary is-medium navbutton" to="/login">
-      <span class="has-text-weight-bold">
-        <i id="videoIcon" className="fa fa-user"></i> Login
-      </span>
-    </Link>
-  );
+  // let loginButton = (
+  //   <Link className="button is-primary is-medium navbutton" to="/login">
+  //     <span class="has-text-weight-bold">
+  //       <i id="videoIcon" className="fa fa-user"></i> Login
+  //     </span>
+  //   </Link>
+  // );
 
   let { pathname } = props.location;
   switch (pathname) {
