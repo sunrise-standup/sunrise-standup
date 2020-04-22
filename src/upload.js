@@ -4,9 +4,7 @@ const {
 } = require("@azure/storage-blob");
 
 async function getSASToken(name) {
-  const sasBuffer = await fetch(
-    `${process.env.API_DOMAIN}/api/GetSASToken?name=${name}`
-  );
+  const sasBuffer = await fetch(`/api/GetSASToken?name=${name}`);
   const { token } = await sasBuffer.json();
 
   return token;

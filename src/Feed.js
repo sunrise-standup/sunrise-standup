@@ -10,7 +10,7 @@ const Feed = () => {
   }, []);
 
   async function getUpdate() {
-    const res = await fetch(`${process.env.API_DOMAIN}/api/GetVideos`);
+    const res = await fetch(`/api/GetVideos`);
     const { updates } = await res.json();
     setUpdates(updates);
   }
