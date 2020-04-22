@@ -16,9 +16,6 @@ import Record from "videojs-record/dist/videojs.record.js";
 
 const videoJsOptions = {
   controls: true,
-  width: 320,
-  height: 240,
-  fluid: false,
   plugins: {
     record: {
       audio: true,
@@ -105,45 +102,43 @@ class PostStatusUpdate extends Component {
   render() {
     return (
       <div className="section">
-        <div className="section">
-          <div id="newPost">
-            <input
-              placeholder="Video title"
-              className="input is-large"
-              type="text"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-            />
-            <hr />
-            <div data-vjs-player>
-              <video
-                id="myVideo"
-                ref={(node) => (this.videoNode = node)}
-                className="video-js vjs-default-skin"
-                playsInline
-              ></video>
-            </div>
-            <hr />
-            {this.state.isFinished ? (
-              <div className="buttons">
-                <button
-                  className={
-                    "button is-primary " +
-                    (this.state.isUploading ? "is-loading" : "")
-                  }
-                  onClick={this.handleSaveClick}
-                  disabled={this.state.isUploading}
-                >
-                  <span class="icon">
-                    <i class="fas fa-share-square"></i>
-                  </span>
-                  <span>Post Update</span>
-                </button>
-              </div>
-            ) : (
-              <div></div>
-            )}
+        <div id="newPost">
+          <input
+            placeholder="Video title"
+            className="input is-large"
+            type="text"
+            value={this.state.name}
+            onChange={this.handleNameChange}
+          />
+          <hr />
+          <div data-vjs-player>
+            <video
+              id="myVideo"
+              ref={(node) => (this.videoNode = node)}
+              className="video-js vjs-default-skin vjs-fluid vjs-4-3"
+              playsInline
+            ></video>
           </div>
+          <hr />
+          {this.state.isFinished ? (
+            <div className="buttons">
+              <button
+                className={
+                  "button is-primary " +
+                  (this.state.isUploading ? "is-loading" : "")
+                }
+                onClick={this.handleSaveClick}
+                disabled={this.state.isUploading}
+              >
+                <span class="icon">
+                  <i class="fas fa-share-square"></i>
+                </span>
+                <span>Post Update</span>
+              </button>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     );
