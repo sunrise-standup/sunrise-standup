@@ -17,22 +17,20 @@ const Feed = () => {
 
   const feedItems = (
     <div>
-      <div id="bumper" className="line-item"></div>
+      <div id="bumper"></div>
       {updates.map(({ name, video, created }) => (
-        <div className="columns line-item is-vcentered">
-          <div className="column feed-line">
-            <span class="created">{created}</span>
+        <div className="columns is-vcentered feed-item">
+          <div className="column line-item is-narrow is-hidden-mobile"></div>
+          <div className="column feed-line is-hidden-mobile">
             <div class="time-line"></div>
           </div>
-          <div className="column feed-item">
-            <div className="">
-              <div className="box video-wrapper">
-                <h3 className="is-size-4">{name}</h3>
-                <video class="video" controls width="500px">
-                  <source src={video} type="video/webm" />
-                  Sorry, your browser doesn't support embedded videos.
-                </video>
-              </div>
+          <div className="column feed-video">
+            <div className="box video-wrapper">
+              <h3 className="is-size-4">{name}</h3>
+              <video class="video" controls>
+                <source src={video} type="video/webm" />
+                Sorry, your browser doesn't support embedded videos.
+              </video>
             </div>
           </div>
         </div>

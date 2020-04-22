@@ -3,7 +3,8 @@
 }
 
 .feed {
-  margin-left: 27px;
+  margin-left: 2.6rem;
+  margin-right: 1rem;
 }
 
 .time-line {
@@ -17,25 +18,31 @@
 
 .column.feed-line {
   padding: 0px;
+  padding: 0px;
+  margin-left: 12px;
 }
 
 .line-item {
   border-left: 2px solid #e0672a;
 }
 
-.columns.line-item {
-  margin-left: 0;
+.column.line-item {
+  padding: 0;
+  width: 12px;
+  height: 100%;
+  position: fixed;
+  margin-left: 12px;
 }
 
-.line-item:nth-child(odd) > .feed-line {
+.feed-item:nth-child(odd) > .feed-line {
   max-width: 300px;
 }
 
-.line-item:nth-child(even) > .feed-line {
+.feed-item:nth-child(even) > .feed-line {
   max-width: 200px;
 }
 
-.feed-item {
+.feed-video {
   max-width: 570px;
   min-height: 200px;
   padding-bottom: 40px;
@@ -54,6 +61,17 @@
   transform: translate(-50%, -50%);
 }
 
-.video {
-  max-width: 500px;
+@media screen and (max-width: 768px) {
+  .feed-video {
+    margin: auto;
+  }
+  .feed {
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 600px) {
+  .video {
+    max-width: 500px;
+  }
 }

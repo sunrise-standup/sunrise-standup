@@ -18,8 +18,8 @@ import "videojs-record/dist/videojs.record.js";
 const App = (props) => {
   return (
     <div>
-      <div className="container main">
-        <Router>
+      <Router>
+        <div className="container main">
           <Nav></Nav>
           <Switch>
             <Route path="/" exact>
@@ -27,9 +27,9 @@ const App = (props) => {
             </Route>
             <Route path="/post" component={PostStatusUpdate}></Route>
           </Switch>
-        </Router>
-      </div>
-      <Footer></Footer>
+        </div>
+        <Footer></Footer>
+      </Router>
     </div>
   );
 };
