@@ -1,4 +1,18 @@
 require("dotenv").config();
+const useNameFromQuerystring =
+  process.env.USE_NAME_FROM_QUERYSTRING &&
+  process.env.USE_NAME_FROM_QUERYSTRING.toLowerCase() === "true";
+// const acceptedUploaders = process.env.ACCEPTED_UPLOADERS
+//   ? process.env.ACCEPTED_UPLOADERS.split(",")
+//   : [];
+const acceptedUploaders = [
+  "btholt",
+  "burkeholland",
+  "fiveisprime",
+  "amandasilver",
+  "darquewarrior",
+  "abelsquidhead",
+];
 
 const {
   generateBlobSASQueryParameters,
@@ -6,8 +20,46 @@ const {
   StorageSharedKeyCredential,
 } = require("@azure/storage-blob");
 
+function getUserInfo(req) {
+  const clientPrincipalHeader = "x-ms-client-principal";
+  if (req.headers[clientPrincipalHeader] == null) {
+    return null;
+  }
+
+  const buffer = Buffer.from(req.headers[clientPrincipalHeader], "base64");
+  const serializedJson = buffer.toString("ascii");
+  return JSON.parse(serializedJson);
+}
+
 module.exports = async function (context, req) {
-  const token = await generateSASToken(req.query.name);
+  const user = getUserInfo(req);
+
+  const name = useNameFromQuerystring
+    ? req.params.name
+    : user && user.userDetails;
+
+  if (!name) {
+    context.res = {
+      status: 401,
+      body: {
+        error: "user not authenticated",
+      },
+      headers: { "Content-Type": "application/json" },
+    };
+    return;
+  }
+  if (acceptedUploaders.length !== 0 && !acceptedUploaders.includes(name)) {
+    context.res = {
+      status: 403,
+      body: {
+        error: "user not authorized",
+      },
+      headers: { "Content-Type": "application/json" },
+    };
+    return;
+  }
+
+  const token = await generateSASToken(name);
   context.res = {
     body: { token },
     headers: { "Content-Type": "application/json" },
