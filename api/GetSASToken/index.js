@@ -20,10 +20,23 @@ const {
   StorageSharedKeyCredential,
 } = require("@azure/storage-blob");
 
+function getUserInfo(req) {
+  const clientPrincipalHeader = "x-ms-client-principal";
+  if (req.headers[clientPrincipalHeader] == null) {
+    return null;
+  }
+
+  const buffer = Buffer.from(req.headers[clientPrincipalHeader], "base64");
+  const serializedJson = buffer.toString("ascii");
+  return JSON.parse(serializedJson);
+}
+
 module.exports = async function (context, req) {
+  const user = getUserInfo(req);
+
   const name = useNameFromQuerystring
     ? req.params.name
-    : req.headers["X-MS-CLIENT-PRINCIPAL-NAME"];
+    : user && user.userDetails;
 
   if (!name) {
     context.res = {
