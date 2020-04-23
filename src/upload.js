@@ -5,7 +5,7 @@ const {
 
 async function getSASToken(name) {
   const sasBuffer = await fetch(`/api/GetSASToken?name=${name}`);
-  const { token, nameFromApi } = await sasBuffer.json();
+  const { token, name: nameFromApi } = await sasBuffer.json();
 
   return [token, nameFromApi];
 }
