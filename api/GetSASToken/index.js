@@ -1,7 +1,7 @@
 require("dotenv").config();
-const useNameFromQuerystring =
-  process.env.USE_NAME_FROM_QUERYSTRING &&
-  process.env.USE_NAME_FROM_QUERYSTRING.toLowerCase() === "true";
+// const useNameFromQuerystring =
+//   process.env.USE_NAME_FROM_QUERYSTRING &&
+//   process.env.USE_NAME_FROM_QUERYSTRING.toLowerCase() === "true";
 // const acceptedUploaders = process.env.ACCEPTED_UPLOADERS
 //   ? process.env.ACCEPTED_UPLOADERS.split(",")
 //   : [];
@@ -34,9 +34,7 @@ function getUserInfo(req) {
 module.exports = async function (context, req) {
   const user = getUserInfo(req);
 
-  const name = useNameFromQuerystring
-    ? req.params.name
-    : user && user.userDetails;
+  const name = user && user.userDetails;
 
   if (!name) {
     context.res = {

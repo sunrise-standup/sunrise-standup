@@ -30,11 +30,9 @@ class PostStatusUpdate extends Component {
   constructor(props) {
     super(props);
 
-    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
 
     this.state = {
-      name: "User Name",
       isFinished: false,
       isUploading: false,
     };
@@ -87,15 +85,9 @@ class PostStatusUpdate extends Component {
       this.player.dispose();
     }
   }
-  handleNameChange(e) {
-    this.setState({
-      name: e.target.value,
-    });
-  }
-
   async handleSaveClick() {
     this.setState({ isUploading: true });
-    await uploadVideo(this.player.recordedData, this.state.name);
+    await uploadVideo(this.player.recordedData);
     this.props.history.push("/");
   }
 
@@ -103,13 +95,6 @@ class PostStatusUpdate extends Component {
     return (
       <div className="section">
         <div id="newPost">
-          <input
-            placeholder="Video title"
-            className="input is-large"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleNameChange}
-          />
           <hr />
           <div data-vjs-player>
             <video
