@@ -61,7 +61,7 @@ module.exports = async function (context, req) {
 
   const token = await generateSASToken(name);
   context.res = {
-    body: { token },
+    body: { token, name },
     headers: { "Content-Type": "application/json" },
   };
 };

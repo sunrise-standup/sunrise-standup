@@ -5,16 +5,15 @@ const {
 
 async function getSASToken(name) {
   const sasBuffer = await fetch(`/api/GetSASToken?name=${name}`);
-  const { token } = await sasBuffer.json();
+  const { token, nameFromApi } = await sasBuffer.json();
 
-  return token;
+  return [token, nameFromApi];
 }
 
 export async function uploadVideo(video, name) {
   const account = process.env.STORAGE_ACCOUNT;
-  const sas = await getSASToken(name);
+  const [sas, blobName] = await getSASToken(name);
   const containerName = process.env.STORAGE_CONTAINER;
-  const blobName = name;
 
   const blobServiceClient = new BlobServiceClient(
     `https://${account}.blob.core.windows.net?${sas}`,
