@@ -1,10 +1,6 @@
 {
   "routes": [
     {
-      "route": "/login",
-      "serve": "/.auth/login/github"
-    },
-    {
       "route": "/logout",
       "serve": "/.auth/logout"
     },
