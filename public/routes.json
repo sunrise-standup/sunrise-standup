@@ -1,12 +1,12 @@
 {
   "routes": [
     {
-      "route": "/logout",
-      "serve": "/.auth/logout"
+      "route": "/login",
+      "serve": "/.auth/login/github"
     },
     {
-      "route": "/.auth/login/github",
-      "statusCode": "404"
+      "route": "/logout",
+      "serve": "/.auth/logout"
     },
     {
       "route": "/.auth/login/aad",
