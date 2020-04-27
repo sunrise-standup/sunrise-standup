@@ -11,3 +11,9 @@
 .button-text {
   font-weight: bold;
 }
+
+#burger {
+  background: inherit;
+  margin-top: 10px;
+  margin-right: 5px;
+}

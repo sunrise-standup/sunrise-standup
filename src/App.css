@@ -2,3 +2,10 @@
   max-width: 1022px;
   margin: auto;
 }
+
+#footer {
+  min-height: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
