@@ -35,17 +35,21 @@
 }
 
 .feed-item:nth-child(odd) > .feed-line {
-  max-width: 300px;
-}
-
-.feed-item:nth-child(even) > .feed-line {
   max-width: 200px;
 }
 
+.feed-item:nth-child(even) > .feed-line {
+  max-width: 100px;
+}
+
 .feed-video {
-  max-width: 570px;
+  max-width: 730px;
   min-height: 200px;
   padding-bottom: 40px;
+}
+
+.caption {
+  width: 400px;
 }
 
 .created {
@@ -61,9 +65,18 @@
   transform: translate(-50%, -50%);
 }
 
+.video {
+  width: 300px;
+}
+
 @media screen and (max-width: 768px) {
   .feed-video {
+    max-width: 500px;
+    min-width: inherit;
     margin: auto;
+  }
+  .video {
+    width: 430px;
   }
   .feed {
     margin: auto;

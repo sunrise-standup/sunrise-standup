@@ -14,6 +14,8 @@ import { uploadVideo } from "./upload";
 import "videojs-record/dist/css/videojs.record.css";
 import "videojs-record/dist/videojs.record.js";
 
+import Translator from "./translator";
+
 const videoJsOptions = {
   controls: true,
   plugins: {
@@ -35,9 +37,30 @@ class PostStatusUpdate extends Component {
     this.state = {
       isFinished: false,
       isUploading: false,
+      captions: [],
     };
+
+    this.updateCaption = this.updateCaption.bind(this);
+  }
+  updateCaption(captions) {
+    console.log(captions);
+
+    const last = this.state.captions[this.state.captions.length - 1];
+
+    if (last && last.translations.offset === captions.translations.offset) {
+      this.state.captions[this.state.captions.length - 1] = captions;
+    } else {
+      this.state.captions.push(captions);
+    }
+
+    this.setState({
+      caption: captions.original,
+    });
   }
   componentDidMount() {
+    // translator
+    const translator = new Translator(this.updateCaption);
+
     // instantiate Video.js
     this.player = videojs(this.videoNode, videoJsOptions, () => {
       // print version information at startup
@@ -59,6 +82,8 @@ class PostStatusUpdate extends Component {
     // user clicked the record button and started recording
     this.player.on("startRecord", () => {
       console.log("started recording!");
+      this.setState({ captions: [] });
+      translator.start();
     });
 
     // user completed recording and stream is available
@@ -67,6 +92,7 @@ class PostStatusUpdate extends Component {
       // can be downloaded by the user, stored on server etc.
       console.log("finished recording: ", this.player.recordedData);
       this.setState({ isFinished: true });
+      translator.stop();
     });
 
     // error handling
@@ -87,7 +113,10 @@ class PostStatusUpdate extends Component {
   }
   async handleSaveClick() {
     this.setState({ isUploading: true });
-    await uploadVideo(this.player.recordedData);
+    await uploadVideo(
+      this.player.recordedData,
+      this.state.captions.map(({ original }) => original).join(" ")
+    );
     this.props.history.push("/");
   }
 
@@ -115,8 +144,8 @@ class PostStatusUpdate extends Component {
                 onClick={this.handleSaveClick}
                 disabled={this.state.isUploading}
               >
-                <span class="icon">
-                  <i class="fas fa-share-square"></i>
+                <span className="icon">
+                  <i className="fas fa-share-square"></i>
                 </span>
                 <span>Post Update</span>
               </button>
@@ -124,6 +153,9 @@ class PostStatusUpdate extends Component {
           ) : (
             <div></div>
           )}
+          <div className="translation">
+            {this.state.captions.map(({ original }) => original).join(" ")}
+          </div>
         </div>
       </div>
     );

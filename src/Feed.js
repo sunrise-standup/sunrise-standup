@@ -18,19 +18,30 @@ const Feed = () => {
   const feedItems = (
     <div>
       <div id="bumper"></div>
-      {updates.map(({ name, video, created }) => (
+      {updates.map(({ name, video, created, caption = "" }) => (
         <div className="columns is-vcentered feed-item">
           <div className="column line-item is-narrow is-hidden-mobile"></div>
           <div className="column feed-line is-hidden-mobile">
             <div className="time-line"></div>
           </div>
-          <div className="column feed-video">
+          <div className="column feed-video is-narrow">
             <div className="box video-wrapper">
               <h3 className="is-size-4">{name}</h3>
-              <video className="video" controls>
-                <source src={video} type="video/webm" />
-                Sorry, your browser doesn't support embedded videos.
-              </video>
+              <div class="columns">
+                <div className="column is-narrow">
+                  <video class="video" controls>
+                    <source src={video} type="video/webm" />
+                    Sorry, your browser doesn't support embedded videos.
+                  </video>
+                </div>
+                {caption ? (
+                  <div className="column caption">
+                    <p>{caption}</p>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </div>
         </div>
