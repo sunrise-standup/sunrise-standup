@@ -24,19 +24,23 @@ const Feed = () => {
           <div className="column feed-line is-hidden-mobile">
             <div className="time-line"></div>
           </div>
-          <div className="column feed-video">
+          <div className="column feed-video is-narrow">
             <div className="box video-wrapper">
               <h3 className="is-size-4">{name}</h3>
               <div class="columns">
                 <div className="column is-narrow">
-                  <video class="video" controls width="200px">
+                  <video class="video" controls>
                     <source src={video} type="video/webm" />
                     Sorry, your browser doesn't support embedded videos.
                   </video>
                 </div>
-                <div className="column">
-                  <p>{caption}</p>
-                </div>
+                {caption ? (
+                  <div className="column caption">
+                    <p>{caption}</p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>

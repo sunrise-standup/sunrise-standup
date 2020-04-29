@@ -43,10 +43,13 @@
 }
 
 .feed-video {
-  min-width: 700px;
-  max-width: 700px;
+  max-width: 730px;
   min-height: 200px;
   padding-bottom: 40px;
+}
+
+.caption {
+  width: 400px;
 }
 
 .created {
@@ -60,6 +63,10 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.video {
+  width: 300px;
 }
 
 @media screen and (max-width: 768px) {
