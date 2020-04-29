@@ -11,14 +11,14 @@ const NavButtons = ({ user }) => {
         <Switch>
           <Route path="/" exact>
             <Link className="button is-primary is-medium navbutton" to="/post">
-              <span class="has-text-weight-bold">
+              <span className="has-text-weight-bold">
                 <i id="videoIcon" className="fa fa-video"></i> Post
               </span>
             </Link>
           </Route>
           <Route path="/post" exact>
             <Link className="button is-primary is-medium navbutton" to="/">
-              <span class="has-text-weight-bold">
+              <span className="has-text-weight-bold">
                 <i id="videoIcon" className="fa fa-arrow-circle-left"></i>{" "}
                 Cancel
               </span>

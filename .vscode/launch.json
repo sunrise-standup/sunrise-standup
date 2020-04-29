@@ -3,11 +3,7 @@
   "compounds": [
     {
       "name": "Full Stack App",
-      "configurations": [
-        "Attach to Node Functions",
-        "Launch via NPM",
-        "Launch Edge"
-      ]
+      "configurations": ["Attach to Node Functions", "Launch via NPM"]
     }
   ],
   "configurations": [

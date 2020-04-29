@@ -18,7 +18,9 @@ module.exports = async function getBlobs(context, req) {
 
   const blobs = [];
 
-  for await (const blob of containerClient.listBlobsFlat()) {
+  for await (const blob of containerClient.listBlobsFlat({
+    includeMetadata: true,
+  })) {
     blobs.push(blob);
   }
 
@@ -32,6 +34,7 @@ module.exports = async function getBlobs(context, req) {
     body: {
       updates: blobs.map((blob) => ({
         name: blob.name,
+        caption: blob.metadata ? blob.metadata.caption : "",
         video: `https://${accountName}.blob.core.windows.net/${containerName}/${encodeURIComponent(
           blob.name
         )}`,

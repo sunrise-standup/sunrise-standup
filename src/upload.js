@@ -3,16 +3,16 @@ const {
   AnonymousCredential,
 } = require("@azure/storage-blob");
 
-async function getSASToken(name) {
-  const sasBuffer = await fetch(`/api/GetSASToken?name=${name}`);
+async function getSASToken() {
+  const sasBuffer = await fetch(`/api/GetSASToken`);
   const { token, name: nameFromApi } = await sasBuffer.json();
 
   return [token, nameFromApi];
 }
 
-export async function uploadVideo(video, name) {
+export async function uploadVideo(video, caption) {
   const account = process.env.STORAGE_ACCOUNT;
-  const [sas, blobName] = await getSASToken(name);
+  const [sas, blobName] = await getSASToken();
   const containerName = process.env.STORAGE_CONTAINER;
 
   const blobServiceClient = new BlobServiceClient(
@@ -26,6 +26,9 @@ export async function uploadVideo(video, name) {
     onProgress: console.log,
     blobHTTPHeaders: {
       blobContentType: video.type,
+    },
+    metadata: {
+      caption,
     },
   });
   console.log(

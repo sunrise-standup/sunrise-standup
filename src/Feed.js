@@ -18,7 +18,7 @@ const Feed = () => {
   const feedItems = (
     <div>
       <div id="bumper"></div>
-      {updates.map(({ name, video, created }) => (
+      {updates.map(({ name, video, created, caption = "" }) => (
         <div className="columns is-vcentered feed-item">
           <div className="column line-item is-narrow is-hidden-mobile"></div>
           <div className="column feed-line is-hidden-mobile">
@@ -35,12 +35,7 @@ const Feed = () => {
                   </video>
                 </div>
                 <div className="column">
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Nihil, commodi exercitationem expedita deleniti cum aliquam
-                    harum cupiditate voluptatum temporibus natus itaque nemo
-                    esse inventore ad iste officiis quas culpa maiores.
-                  </p>
+                  <p>{caption}</p>
                 </div>
               </div>
             </div>
