@@ -27,10 +27,22 @@ const Feed = () => {
           <div className="column feed-video">
             <div className="box video-wrapper">
               <h3 className="is-size-4">{name}</h3>
-              <video className="video" controls>
-                <source src={video} type="video/webm" />
-                Sorry, your browser doesn't support embedded videos.
-              </video>
+              <div class="columns">
+                <div className="column is-narrow">
+                  <video class="video" controls width="200px">
+                    <source src={video} type="video/webm" />
+                    Sorry, your browser doesn't support embedded videos.
+                  </video>
+                </div>
+                <div className="column">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Nihil, commodi exercitationem expedita deleniti cum aliquam
+                    harum cupiditate voluptatum temporibus natus itaque nemo
+                    esse inventore ad iste officiis quas culpa maiores.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

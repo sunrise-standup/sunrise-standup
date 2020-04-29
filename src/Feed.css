@@ -35,15 +35,16 @@
 }
 
 .feed-item:nth-child(odd) > .feed-line {
-  max-width: 300px;
-}
-
-.feed-item:nth-child(even) > .feed-line {
   max-width: 200px;
 }
 
+.feed-item:nth-child(even) > .feed-line {
+  max-width: 100px;
+}
+
 .feed-video {
-  max-width: 570px;
+  min-width: 700px;
+  max-width: 700px;
   min-height: 200px;
   padding-bottom: 40px;
 }
@@ -63,7 +64,12 @@
 
 @media screen and (max-width: 768px) {
   .feed-video {
+    max-width: 500px;
+    min-width: inherit;
     margin: auto;
+  }
+  .video {
+    width: 430px;
   }
   .feed {
     margin: auto;
