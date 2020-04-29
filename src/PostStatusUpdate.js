@@ -28,13 +28,6 @@ const videoJsOptions = {
   },
 };
 
-const options = {
-  key: process.env.AI_API_KEY,
-  region: "eastus",
-  fromLanguage: "en-US",
-  toLanguages: ["en-US"],
-};
-
 class PostStatusUpdate extends Component {
   constructor(props) {
     super(props);
@@ -90,7 +83,7 @@ class PostStatusUpdate extends Component {
     this.player.on("startRecord", () => {
       console.log("started recording!");
       this.setState({ captions: [] });
-      translator.start(options);
+      translator.start();
     });
 
     // user completed recording and stream is available

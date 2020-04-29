@@ -1,18 +1,4 @@
 require("dotenv").config();
-// const useNameFromQuerystring =
-//   process.env.USE_NAME_FROM_QUERYSTRING &&
-//   process.env.USE_NAME_FROM_QUERYSTRING.toLowerCase() === "true";
-// const acceptedUploaders = process.env.ACCEPTED_UPLOADERS
-//   ? process.env.ACCEPTED_UPLOADERS.split(",")
-//   : [];
-const acceptedUploaders = [
-  "btholt",
-  "burkeholland",
-  "fiveisprime",
-  "amandasilver",
-  "darquewarrior",
-  "abelsquidhead",
-];
 
 const {
   generateBlobSASQueryParameters,
@@ -46,7 +32,9 @@ module.exports = async function (context, req) {
     };
     return;
   }
-  if (acceptedUploaders.length !== 0 && !acceptedUploaders.includes(name)) {
+
+  // change this to admin when OSS'ing it
+  if (!user.roles.includes("authenticated")) {
     context.res = {
       status: 403,
       body: {

@@ -13,7 +13,14 @@ class Translator {
     this._callback = callback;
   }
 
-  start(options) {
+  start() {
+    const options = {
+      key: process.env.AI_API_KEY,
+      region: "eastus",
+      fromLanguage: "en-US",
+      toLanguages: ["en-US"],
+    };
+
     const alreadyStarted = !!this._recognizer;
     if (alreadyStarted) {
       return;
