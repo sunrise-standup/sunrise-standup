@@ -1,26 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
 import Nav from "./Nav";
-import Footer from "./Footer";
 import Feed from "./Feed";
 import PostStatusUpdate from "./PostStatusUpdate";
 
-import "video.js";
-import "video.js/dist/video-js.css";
-import "recordrtc";
-import "webrtc-adapter";
-
-import "videojs-record/dist/css/videojs.record.css";
-import "videojs-record/dist/videojs.record.js";
+import authApi from "./api/authApi";
 
 const App = (props) => {
+  const [user, setUser] = useState({ name: "" });
+  useEffect(() => {
+    async function getLoggedInUser() {
+      const user = await authApi.getLoggedInUser();
+      setUser(user);
+    }
+    getLoggedInUser();
+  }, []);
   return (
     <div>
       <Router>
         <div className="container main">
-          <Nav></Nav>
+          <Nav user={user}></Nav>
           <Switch>
             <Route path="/" exact>
               <Feed />
@@ -28,7 +29,12 @@ const App = (props) => {
             <Route path="/post" component={PostStatusUpdate}></Route>
           </Switch>
         </div>
-        <Footer></Footer>
+        <footer
+          id="footer"
+          className="has-background-primary has-text-centered"
+        >
+          <div className="is-hidden-tablet"></div>
+        </footer>
       </Router>
     </div>
   );

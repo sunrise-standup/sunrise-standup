@@ -1,46 +1,46 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import "./NavButtons.css";
 
-const NavButtons = withRouter((props) => {
-  let activeButton = <div></div>;
-  let postButton = (
-    <Link className="button is-primary is-medium navbutton" to="/post">
-      <span class="has-text-weight-bold">
-        <i id="videoIcon" className="fa fa-video"></i> Post
-      </span>
-    </Link>
-  );
+const NavButtons = ({ user }) => {
+  const userCanPost = user && user.isAdmin;
 
-  let cancelButton = (
-    <Link className="button is-primary is-medium navbutton" to="/">
-      <span class="has-text-weight-bold">
-        <i id="videoIcon" className="fa fa-arrow-circle-left"></i> Cancel
-      </span>
-    </Link>
-  );
-
-  // let loginButton = (
-  //   <Link className="button is-primary is-medium navbutton" to="/login">
-  //     <span class="has-text-weight-bold">
-  //       <i id="videoIcon" className="fa fa-user"></i> Login
-  //     </span>
-  //   </Link>
-  // );
-
-  let { pathname } = props.location;
-  switch (pathname) {
-    case "/":
-      activeButton = postButton;
-      break;
-    case "/post":
-      activeButton = cancelButton;
-      break;
-    default:
-      activeButton = postButton;
+  if (userCanPost) {
+    return (
+      <div>
+        <Switch>
+          <Route path="/" exact>
+            <Link className="button is-primary is-medium navbutton" to="/post">
+              <span class="has-text-weight-bold">
+                <i id="videoIcon" className="fa fa-video"></i> Post
+              </span>
+            </Link>
+          </Route>
+          <Route path="/post" exact>
+            <Link className="button is-primary is-medium navbutton" to="/">
+              <span class="has-text-weight-bold">
+                <i id="videoIcon" className="fa fa-arrow-circle-left"></i>{" "}
+                Cancel
+              </span>
+            </Link>
+          </Route>
+        </Switch>
+        <a href="logout" className="button is-secondary is-medium navbutton">
+          <span className="has-text-weight-bold">
+            <i id="videoIcon" className="fa fa-user"></i> Log Out
+          </span>
+        </a>
+      </div>
+    );
+  } else {
+    return (
+      <a className="button is-primary is-medium navbutton" href="login">
+        <span className="has-text-weight-bold">
+          <i id="videoIcon" className="fa fa-user"></i> Login
+        </span>
+      </a>
+    );
   }
-
-  return activeButton;
-});
+};
 
 export default NavButtons;

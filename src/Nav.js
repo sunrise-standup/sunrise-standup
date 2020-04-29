@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Nav.css";
 import NavButtons from "./NavButtons";
 
-const Nav = (props) => {
+const Nav = ({ user }) => {
+  const [menuActive, setMenuActive] = useState(false);
+
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -14,11 +16,25 @@ const Nav = (props) => {
             height="85"
           />
         </a>
+        <button
+          id="burger"
+          className="button navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+          onClick={() => setMenuActive(!menuActive)}
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
       </div>
-      <div className="navbar-menu is-paddingless">
+      <div className={"navbar-menu " + (menuActive ? "is-active" : "")}>
         <div className="navbar-end">
           <div className="navbar-item">
-            <NavButtons></NavButtons>
+            <div className="buttons">
+              <NavButtons user={user}></NavButtons>
+            </div>
           </div>
         </div>
       </div>

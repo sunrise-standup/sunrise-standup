@@ -12,7 +12,7 @@ import "webrtc-adapter";
 import { uploadVideo } from "./upload";
 
 import "videojs-record/dist/css/videojs.record.css";
-import Record from "videojs-record/dist/videojs.record.js";
+import "videojs-record/dist/videojs.record.js";
 
 const videoJsOptions = {
   controls: true,

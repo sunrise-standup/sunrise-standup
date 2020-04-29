@@ -22,12 +22,12 @@ const Feed = () => {
         <div className="columns is-vcentered feed-item">
           <div className="column line-item is-narrow is-hidden-mobile"></div>
           <div className="column feed-line is-hidden-mobile">
-            <div class="time-line"></div>
+            <div className="time-line"></div>
           </div>
           <div className="column feed-video">
             <div className="box video-wrapper">
               <h3 className="is-size-4">{name}</h3>
-              <video class="video" controls>
+              <video className="video" controls>
                 <source src={video} type="video/webm" />
                 Sorry, your browser doesn't support embedded videos.
               </video>
