@@ -12,12 +12,13 @@ const VideoMap = (props) => {
       //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
       authOptions: {
         authType: "subscriptionKey",
-        subscriptionKey: "s-OwOWEAAVQH3rqkAAi4An6Np-wBaIXG_84u-7CTFdM",
+        subscriptionKey: process.env.MAP_KEY,
       },
     });
     //Wait until the map resources are ready.
     map.events.add("ready", async function () {
       const data = await (await fetch("/api/GetLocations")).json();
+      console.log(data);
 
       //Create a data source and add it to the map.
       var dataSource = new atlas.source.DataSource();

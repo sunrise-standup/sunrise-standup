@@ -26,7 +26,7 @@ module.exports = async function getBlobs(context, req) {
   context.res = {
     headers: { "Content-Type": "application/json" },
     body: {
-      updates: blobs.map((blob) => ({
+      locations: blobs.map((blob) => ({
         name: blob.name,
         longitude: +blob.metadata.longitude,
         latitude: +blob.metadata.latitude,
