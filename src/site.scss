@@ -13,3 +13,11 @@ $navbar-breakpoint: $tablet;
   max-width: 1022px;
   margin: auto;
 }
+
+.navbar-item {
+  height: 54px;
+}
+
+.navbar {
+  background: transparent;
+}
