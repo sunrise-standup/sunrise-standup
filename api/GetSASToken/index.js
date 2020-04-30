@@ -26,6 +26,8 @@ module.exports = async function (context, req) {
     context.res = {
       status: 401,
       body: {
+        headers: req.headers,
+        user,
         name,
         error: "user not authenticated",
       },
@@ -39,6 +41,8 @@ module.exports = async function (context, req) {
     context.res = {
       status: 403,
       body: {
+        headers: req.headers,
+        user,
         name,
         error: "user not authorized",
       },
