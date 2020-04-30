@@ -14,7 +14,7 @@ import { uploadVideo } from "./upload";
 import "videojs-record/dist/css/videojs.record.css";
 import "videojs-record/dist/videojs.record.js";
 
-import Translator from "./translator";
+import captioner from "./captioner";
 
 const videoJsOptions = {
   controls: true,
@@ -38,28 +38,36 @@ class PostStatusUpdate extends Component {
       isFinished: false,
       isUploading: false,
       captions: [],
+      latitude: 0,
+      longitude: 0,
     };
 
     this.updateCaption = this.updateCaption.bind(this);
   }
   updateCaption(captions) {
-    console.log(captions);
-
-    const last = this.state.captions[this.state.captions.length - 1];
+    let existingCaptions = this.state.captions;
+    const last = existingCaptions[existingCaptions.length - 1];
 
     if (last && last.translations.offset === captions.translations.offset) {
-      this.state.captions[this.state.captions.length - 1] = captions;
+      existingCaptions[existingCaptions.length - 1] = captions;
     } else {
-      this.state.captions.push(captions);
+      existingCaptions.push(captions);
     }
 
     this.setState({
-      caption: captions.original,
+      captions: existingCaptions,
+    });
+  }
+  getLocation() {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
     });
   }
   componentDidMount() {
-    // translator
-    const translator = new Translator(this.updateCaption);
+    this.getLocation();
 
     // instantiate Video.js
     this.player = videojs(this.videoNode, videoJsOptions, () => {
@@ -83,7 +91,7 @@ class PostStatusUpdate extends Component {
     this.player.on("startRecord", () => {
       console.log("started recording!");
       this.setState({ captions: [] });
-      translator.start();
+      captioner.start(this.updateCaption);
     });
 
     // user completed recording and stream is available
@@ -92,7 +100,7 @@ class PostStatusUpdate extends Component {
       // can be downloaded by the user, stored on server etc.
       console.log("finished recording: ", this.player.recordedData);
       this.setState({ isFinished: true });
-      translator.stop();
+      captioner.stop();
     });
 
     // error handling
@@ -115,7 +123,9 @@ class PostStatusUpdate extends Component {
     this.setState({ isUploading: true });
     await uploadVideo(
       this.player.recordedData,
-      this.state.captions.map(({ original }) => original).join(" ")
+      this.state.captions.map(({ original }) => original).join(" "),
+      this.state.longitude,
+      this.state.latitude
     );
     this.props.history.push("/");
   }

@@ -10,7 +10,7 @@ async function getSASToken() {
   return [token, nameFromApi];
 }
 
-export async function uploadVideo(video, caption) {
+export async function uploadVideo(video, caption, longitude, latitude) {
   const account = process.env.STORAGE_ACCOUNT;
   const [sas, blobName] = await getSASToken();
   const containerName = process.env.STORAGE_CONTAINER;
@@ -29,6 +29,8 @@ export async function uploadVideo(video, caption) {
     },
     metadata: {
       caption,
+      longitude: "" + longitude,
+      latitude: "" + latitude,
     },
   });
   console.log(

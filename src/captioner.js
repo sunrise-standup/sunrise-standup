@@ -5,15 +5,13 @@ import {
   ResultReason,
 } from "microsoft-cognitiveservices-speech-sdk";
 
-class Translator {
+class Captioner {
   _recognizer;
   _callback;
 
-  constructor(callback) {
+  start(callback) {
     this._callback = callback;
-  }
 
-  start() {
     const options = {
       key: process.env.AI_API_KEY,
       region: "eastus",
@@ -90,4 +88,6 @@ class Translator {
   }
 }
 
-export default Translator;
+const captioner = new Captioner();
+
+export default captioner;
