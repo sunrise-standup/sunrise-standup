@@ -25,6 +25,10 @@
       "statusCode": "404"
     },
     {
+      "route": "/api/GetSASToken",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200

@@ -20,35 +20,10 @@ function getUserInfo(req) {
 module.exports = async function (context, req) {
   const user = getUserInfo(req);
 
-  const name = user && user.userDetails;
+  let name = user && user.userDetails;
 
   if (!name) {
-    context.res = {
-      status: 401,
-      body: {
-        headers: req.headers,
-        user,
-        name,
-        error: "user not authenticated",
-      },
-      headers: { "Content-Type": "application/json" },
-    };
-    return;
-  }
-
-  // change this to admin when OSS'ing it
-  if (!user.roles.includes("authenticated")) {
-    context.res = {
-      status: 403,
-      body: {
-        headers: req.headers,
-        user,
-        name,
-        error: "user not authorized",
-      },
-      headers: { "Content-Type": "application/json" },
-    };
-    return;
+    name = "tempuser";
   }
 
   const token = await generateSASToken(name);
