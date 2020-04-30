@@ -16,6 +16,13 @@ const NavButtons = ({ user }) => {
               </span>
             </Link>
           </Route>
+          <Route path="/map" exact>
+            <Link className="button is-primary is-medium navbutton" to="/post">
+              <span className="has-text-weight-bold">
+                <i id="videoIcon" className="fa fa-video"></i> Post
+              </span>
+            </Link>
+          </Route>
           <Route path="/post" exact>
             <Link className="button is-primary is-medium navbutton" to="/">
               <span className="has-text-weight-bold">

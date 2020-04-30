@@ -1,0 +1,19 @@
+#map {
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin-top: -60px;
+}
+
+.customInfobox {
+  max-width: 240px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.customInfobox .name {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}

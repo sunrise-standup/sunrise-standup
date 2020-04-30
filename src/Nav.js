@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Nav.css";
 import NavButtons from "./NavButtons";
 
@@ -8,14 +9,14 @@ const Nav = ({ user }) => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="/">
+        <Link className="navbar-item" to="/">
           <img
             id="logo"
             src="logo.png"
             alt="Grab a cup and let's go"
             height="85"
           />
-        </a>
+        </Link>
         <button
           id="burger"
           className="button navbar-burger burger"

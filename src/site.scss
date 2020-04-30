@@ -7,9 +7,17 @@ $navbar-background-color: #f9f5f1;
 
 $navbar-breakpoint: $tablet;
 
-.navbar-item {
-  margin-right: 1rem;
-  margin-left: 1rem;
+@import "bulma";
+
+.container {
+  max-width: 1022px;
+  margin: auto;
 }
 
-@import "bulma";
+.navbar-item {
+  height: 54px;
+}
+
+.navbar {
+  background: transparent;
+}

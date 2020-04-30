@@ -6,7 +6,7 @@ export default {
       isAdmin: false,
     };
 
-    const response = await fetch("api/.auth/me");
+    const response = await fetch(".auth/me");
 
     if (response.status === 200) {
       const json = await response.json();
