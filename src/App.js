@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import { Link, Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
 import Nav from "./Nav";
@@ -33,7 +33,13 @@ const App = (props) => {
           id="footer"
           className="has-background-primary has-text-centered"
         >
-          <div className="is-hidden-tablet"></div>
+          <div className="container is-aligned-center">
+            <Link className="button is-medium is-primary" to="/map">
+              <span class="menu">
+                <i className="fa fa-map"></i> Map
+              </span>
+            </Link>
+          </div>
         </footer>
       </Router>
     </div>
