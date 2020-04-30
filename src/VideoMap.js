@@ -23,7 +23,7 @@ const VideoMap = (props) => {
       var dataSource = new atlas.source.DataSource();
       map.sources.add(dataSource);
 
-      data.locations.map((location) => {
+      data.locations.forEach((location) => {
         //Create a point and add it to the data source.
         dataSource.add(
           new atlas.data.Feature(
