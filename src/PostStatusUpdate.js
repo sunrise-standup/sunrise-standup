@@ -40,6 +40,7 @@ class PostStatusUpdate extends Component {
       captions: [],
       latitude: 0,
       longitude: 0,
+      image: "",
     };
 
     this.updateCaption = this.updateCaption.bind(this);
@@ -66,8 +67,17 @@ class PostStatusUpdate extends Component {
       });
     });
   }
+  async getAvatar() {
+    const res = await fetch("/api/getGitHubAvatar");
+    const { image } = await res.json();
+
+    this.setState({
+      avatar: image,
+    });
+  }
   componentDidMount() {
     this.getLocation();
+    this.getAvatar();
 
     // instantiate Video.js
     this.player = videojs(this.videoNode, videoJsOptions, () => {
@@ -125,7 +135,8 @@ class PostStatusUpdate extends Component {
       this.player.recordedData,
       this.state.captions.map(({ original }) => original).join(" "),
       this.state.longitude,
-      this.state.latitude
+      this.state.latitude,
+      this.state.avatar
     );
     this.props.history.push("/");
   }

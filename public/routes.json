@@ -29,6 +29,10 @@
       "allowedRoles": ["authenticated"]
     },
     {
+      "route": "/api/GetGitHubAvatar",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/*",
       "serve": "/index.html",
       "statusCode": 200

@@ -9,6 +9,7 @@
   "dependencies": {
     "@azure/storage-blob": "^12.1.1",
     "dotenv": "^8.2.0",
+    "graphql-request": "^1.8.2",
     "moment": "^2.24.0"
   }
 }

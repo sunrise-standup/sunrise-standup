@@ -1,3 +1,5 @@
+const getUserInfo = require("../utils/getUserInfo");
+
 require("dotenv").config();
 
 const {
@@ -6,25 +8,10 @@ const {
   StorageSharedKeyCredential,
 } = require("@azure/storage-blob");
 
-function getUserInfo(req) {
-  const clientPrincipalHeader = "x-ms-client-principal";
-  if (req.headers[clientPrincipalHeader] == null) {
-    return null;
-  }
-
-  const buffer = Buffer.from(req.headers[clientPrincipalHeader], "base64");
-  const serializedJson = buffer.toString("ascii");
-  return JSON.parse(serializedJson);
-}
-
 module.exports = async function (context, req) {
   const user = getUserInfo(req);
 
-  let name = user && user.userDetails;
-
-  if (!name) {
-    name = "tempuser";
-  }
+  const name = user && user.userDetails;
 
   const token = await generateSASToken(name);
   context.res = {
