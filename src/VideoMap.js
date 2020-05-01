@@ -18,7 +18,8 @@ const VideoMap = (props) => {
     //Wait until the map resources are ready.
     map.events.add("ready", async function () {
       const data = await (await fetch("/api/GetLocations")).json();
-      console.log(data);
+
+      await map.imageSprite.add("my-custom-icon", "sunrise-marker.png");
 
       //Create a data source and add it to the map.
       var dataSource = new atlas.source.DataSource();
@@ -31,33 +32,55 @@ const VideoMap = (props) => {
             new atlas.data.Point([location.longitude, location.latitude]),
             {
               name: location.name,
+              avatar: location.avatar,
             }
           )
         );
       });
 
       //Create a symbol layer to render icons and/or text at points on the map.
-      var symbolLayer = new atlas.layer.SymbolLayer(dataSource);
+      const symbolLayer = new atlas.layer.SymbolLayer(dataSource, null, {
+        iconOptions: {
+          //Pass in the id of the custom icon that was loaded into the map resources.
+          image: "my-custom-icon",
+          //Optionally scale the size of the icon.
+          size: 1,
+        },
+      });
 
       //Add the layer to the map.
       map.layers.add(symbolLayer);
 
-      var popupTemplate =
-        '<div class="customInfobox"><div class="name">{name}</div></div>';
-
       //Create a popup but leave it closed so we can update it and display it later.
       let popup = new atlas.Popup({
         closeButton: false,
-        pixelOffset: [0, -18],
+        pixelOffset: [0, -50],
       });
 
       //Add a hover event to the symbol layer.
       map.events.add("mouseover", symbolLayer, function (e) {
         //Make sure that the point exists.
         if (e.shapes && e.shapes.length > 0) {
-          var content, coordinate;
-          var properties = e.shapes[0].getProperties();
-          content = popupTemplate.replace(/{name}/g, properties.name);
+          let coordinate;
+          const properties = e.shapes[0].getProperties();
+
+          const content = `
+          <div id="popup" class="card">
+            <div class="card-image">
+              <figure class="image">
+                <img src="${properties.avatar}" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+                <div class="media-content">
+                  <p class="title is-4">${properties.name}</p>
+                </div>
+              </div>
+
+              <div class="content">
+            </div>
+          </div>`;
+
           coordinate = e.shapes[0].getCoordinates();
 
           popup.setOptions({
