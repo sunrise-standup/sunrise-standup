@@ -30,6 +30,7 @@ module.exports = async function getBlobs(context, req) {
         name: blob.name,
         longitude: +blob.metadata.longitude,
         latitude: +blob.metadata.latitude,
+        avatar: blob.metadata.avatar || "/github.png",
       })),
     },
   };
