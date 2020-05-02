@@ -3,7 +3,7 @@ export default {
     let user = {
       isLoggedIn: false,
       name: "",
-      isAdmin: true,
+      isAdmin: false,
     };
 
     const response = await fetch(".auth/me");
@@ -12,7 +12,7 @@ export default {
       const json = await response.json();
       const clientPrincipal = json.clientPrincipal;
 
-      if (clientPrincipal !== null) {
+      if (clientPrincipal) {
         user = {
           isLoggedIn: true,
           name: clientPrincipal.userDetails,
