@@ -24,7 +24,7 @@ module.exports = async function getBlobs(context, req) {
     blobs.push(blob);
   }
 
-  // order the blobs by date
+  // order the blobs by date descending
   blobs.sort((a, b) => {
     return (
       new Date(b.properties.lastModified) - new Date(a.properties.lastModified)
