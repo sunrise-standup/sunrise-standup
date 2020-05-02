@@ -12,7 +12,7 @@ export default {
       const json = await response.json();
       const clientPrincipal = json.clientPrincipal;
 
-      if (clientPrincipal) {
+      if (clientPrincipal !== null) {
         user = {
           isLoggedIn: true,
           name: clientPrincipal.userDetails,
