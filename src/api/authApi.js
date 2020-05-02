@@ -1,7 +1,7 @@
 export default {
   async getLoggedInUser() {
     let user = {
-      isLoggedIn: true,
+      isLoggedIn: false,
       name: "",
       isAdmin: true,
     };
