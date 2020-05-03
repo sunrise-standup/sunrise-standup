@@ -31,6 +31,7 @@ const Feed = () => {
                 <div className="column is-narrow">
                   <video class="video" controls>
                     <source src={video} type="video/webm" />
+                    <source src={video} type="video/mp4" />
                     Sorry, your browser doesn't support embedded videos.
                   </video>
                 </div>
