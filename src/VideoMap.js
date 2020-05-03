@@ -71,10 +71,8 @@ const VideoMap = (props) => {
                 <img src="${properties.avatar}" alt="Placeholder image">
               </figure>
             </div>
-            <div class="card-content">
-                <div class="media-content">
-                  <p class="title is-4">${properties.name}</p>
-                </div>
+            <div id="name" class="card-content has-text-centered">
+                  <p class="is-size-4">${properties.name}</p>
               </div>
 
               <div class="content">
