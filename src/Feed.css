@@ -61,12 +61,16 @@
 }
 
 #loader {
-  width: 50vh;
+  text-align: center;
   position: fixed;
   bottom: 0;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  color: #9b7963;
+}
+
+#loader > img {
 }
 
 .video {

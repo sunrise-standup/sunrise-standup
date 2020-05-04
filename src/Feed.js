@@ -55,8 +55,9 @@ const Feed = () => {
       {updates.length > 0 ? (
         feedItems
       ) : (
-        <div>
-          <img id="loader" src="loader.svg" alt="" />
+        <div id="loader">
+          <img src="loader.svg" alt="" />
+          <h5 className="is-size-5 has-text-weight-bold">Loading</h5>
         </div>
       )}
     </div>
