@@ -5,5 +5,6 @@ import App from "./App";
 
 // An color-customized version of bulma
 import "./site.scss";
+import "./dark.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));

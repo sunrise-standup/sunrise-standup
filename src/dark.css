@@ -1,12 +1,10 @@
-#root,
-body {
-  background-color: #333;
-}
+@media (prefers-color-scheme: dark) {
+  #root,
+  body {
+    background-color: #333;
+  }
 
-.navbar.navbar {
-  background-color: #333;
-}
-
-.translation {
-  color: white;
+  .translation {
+    color: white;
+  }
 }
