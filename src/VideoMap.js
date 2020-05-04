@@ -15,6 +15,7 @@ const VideoMap = (props) => {
         subscriptionKey: process.env.MAP_KEY,
       },
     });
+
     //Wait until the map resources are ready.
     map.events.add("ready", async function () {
       const data = await (await fetch("/api/GetLocations")).json();
@@ -48,48 +49,26 @@ const VideoMap = (props) => {
         },
       });
 
-      //Add the layer to the map.
-      map.layers.add(symbolLayer);
-
       //Create a popup but leave it closed so we can update it and display it later.
       let popup = new atlas.Popup({
         closeButton: false,
         pixelOffset: [0, -50],
       });
 
+      //Add the layer to the map.
+      map.layers.add(symbolLayer);
+
+      map.events.add("click", symbolLayer, function (e) {
+        setPopup(popup, e);
+        //Open the popup.
+        popup.open(map);
+      });
+
       //Add a hover event to the symbol layer.
       map.events.add("mouseover", symbolLayer, function (e) {
-        //Make sure that the point exists.
-        if (e.shapes && e.shapes.length > 0) {
-          let coordinate;
-          const properties = e.shapes[0].getProperties();
-
-          const content = `
-          <div id="popup" class="card">
-            <div class="card-image">
-              <figure class="image">
-                <img src="${properties.avatar}" alt="Placeholder image">
-              </figure>
-            </div>
-            <div id="name" class="card-content has-text-centered">
-                  <p class="is-size-4">${properties.name}</p>
-              </div>
-
-              <div class="content">
-            </div>
-          </div>`;
-
-          coordinate = e.shapes[0].getCoordinates();
-
-          popup.setOptions({
-            //Update the content of the popup.
-            content: content,
-            //Update the popup's position with the symbol's coordinate.
-            position: coordinate,
-          });
-          //Open the popup.
-          popup.open(map);
-        }
+        setPopup(popup, e);
+        //Open the popup.
+        popup.open(map);
       });
 
       map.events.add("mouseleave", symbolLayer, function () {
@@ -97,6 +76,39 @@ const VideoMap = (props) => {
       });
     });
   }, []);
+
+  function setPopup(popup, e) {
+    //Make sure that the point exists.
+    if (e.shapes && e.shapes.length > 0) {
+      let coordinate;
+      const properties = e.shapes[0].getProperties();
+
+      const content = `
+      <div id="popup" class="card">
+        <div class="card-image">
+          <figure class="image">
+            <img src="${properties.avatar}" alt="Placeholder image">
+          </figure>
+        </div>
+        <div id="name" class="card-content has-text-centered">
+              <p class="is-size-4">${properties.name}</p>
+          </div>
+
+          <div class="content">
+        </div>
+      </div>`;
+
+      coordinate = e.shapes[0].getCoordinates();
+
+      popup.setOptions({
+        //Update the content of the popup.
+        content: content,
+        //Update the popup's position with the symbol's coordinate.
+        position: coordinate,
+      });
+    }
+  }
+
   return <div id="map"></div>;
 };
 
