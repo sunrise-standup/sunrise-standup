@@ -34,6 +34,10 @@
   margin-left: 12px;
 }
 
+.columns.feed-item {
+  margin-right: inherit;
+}
+
 .feed-item:nth-child(odd) > .feed-line {
   max-width: 200px;
 }
@@ -79,6 +83,9 @@
     width: 430px;
   }
   .feed {
+    margin: auto;
+  }
+  .feed-item {
     margin: auto;
   }
 }

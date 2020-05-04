@@ -36,7 +36,7 @@ const Feed = () => {
                   </video>
                 </div>
                 {caption ? (
-                  <div className="column caption">
+                  <div className="column">
                     <p>{caption}</p>
                   </div>
                 ) : (
