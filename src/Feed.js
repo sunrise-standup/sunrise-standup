@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import "./Feed.css";
-import { getSubscriptionKey } from "azure-maps-control";
-import { BlobBeginCopyFromUrlPoller } from "@azure/storage-blob/typings/latest/src/pollers/BlobStartCopyFromUrlPoller";
 
 const Feed = () => {
   const [updates, setUpdates] = useState([]);
