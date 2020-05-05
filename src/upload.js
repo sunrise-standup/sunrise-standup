@@ -29,8 +29,8 @@ export async function uploadVideo(video, caption, longitude, latitude, avatar) {
     },
     metadata: {
       caption,
-      longitude: "" + longitude,
-      latitude: "" + latitude,
+      longitude: longitude.toFixed(1),
+      latitude: latitude.toFixed(1),
       avatar,
     },
   });

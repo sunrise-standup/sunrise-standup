@@ -73,8 +73,46 @@
 #loader > img {
 }
 
+.pic-container {
+  /* width: 300px; */
+}
+
+.thumbnail {
+  height: inherit;
+  max-width: inherit;
+}
+
+.pic-container {
+  width: 288px;
+  height: 216px;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .video {
-  width: 300px;
+}
+
+.overlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  /* background-color: white; */
+}
+
+.play-icon {
+  width: 100px;
+  color: red;
 }
 
 @media screen and (max-width: 768px) {
@@ -83,8 +121,8 @@
     min-width: inherit;
     margin: auto;
   }
-  .video {
-    width: 430px;
+  .pic-container {
+    margin: 0 auto;
   }
   .feed {
     margin: auto;
@@ -95,7 +133,7 @@
 }
 
 @media screen and (max-width: 1024px) and (min-width: 600px) {
-  .video {
+  .pic-container {
     max-width: 500px;
   }
 }
