@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import "./Feed.css";
+import { getSubscriptionKey } from "azure-maps-control";
+import { BlobBeginCopyFromUrlPoller } from "@azure/storage-blob/typings/latest/src/pollers/BlobStartCopyFromUrlPoller";
 
 const Feed = () => {
   const [updates, setUpdates] = useState([]);
@@ -29,9 +31,8 @@ const Feed = () => {
               <h3 className="is-size-4">{name}</h3>
               <div class="columns">
                 <div className="column is-narrow">
-                  <video class="video" controls>
-                    <source src={video} type="video/webm" />
-                    <source src={video} type="video/mp4" />
+                  <video class="video" controls playsInline>
+                    <source src={video} type="video/webm"></source>
                     Sorry, your browser doesn't support embedded videos.
                   </video>
                 </div>
