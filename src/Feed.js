@@ -38,8 +38,8 @@ const Feed = () => {
                     }
                   >
                     {selectedVideo === index ? (
-                  <video class="video" controls playsInline>
-                    <source src={video} type="video/webm"></source>
+                      <video class="video" controls playsInline autoPlay>
+                        <source src={video} type="video/webm"></source>
                         Sorry, your browser doesn't support embedded videos.
                       </video>
                     ) : (
