@@ -1,4 +1,3 @@
-require("dotenv").config();
 const Moment = require("moment");
 
 const { BlobServiceClient } = require("@azure/storage-blob");

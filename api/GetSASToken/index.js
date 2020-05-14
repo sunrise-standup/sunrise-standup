@@ -1,7 +1,5 @@
 const getUserInfo = require("../utils/getUserInfo");
 
-require("dotenv").config();
-
 const {
   generateBlobSASQueryParameters,
   ContainerSASPermissions,
