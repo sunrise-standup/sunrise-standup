@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import * as atlas from "azure-maps-control";
 import "./Map.css";
+import appApi from "../api/appApi";
 
 const Map = () => {
 
@@ -21,7 +22,7 @@ const Map = () => {
     map.events.add("ready", async function () {
 
       // gets the user map locations from the API
-      const data = await (await fetch("/api/GetLocations")).json();
+      const data = await appApi.getLocations();
 
       await map.imageSprite.add("my-custom-icon", "sunrise-marker.png");
 
