@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import * as atlas from "azure-maps-control";
-import "./VideoMap.css";
+import "./Map.css";
 
-const VideoMap = (props) => {
+const Map = (props) => {
   useEffect(() => {
     //Initialize a map instance.
     const map = new atlas.Map("map", {
@@ -112,4 +112,4 @@ const VideoMap = (props) => {
   return <div id="map"></div>;
 };
 
-export default VideoMap;
+export default Map;

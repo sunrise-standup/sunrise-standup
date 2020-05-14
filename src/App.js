@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
-import Nav from "./Nav";
-import Feed from "./Feed";
-import PostStatusUpdate from "./PostStatusUpdate";
-import VideoMap from "./VideoMap";
+import Nav from "./components/Nav";
+import Feed from "./pages/Feed";
+import Post from "./pages/Post";
+import Map from "./pages/Map";
 
 import authApi from "./api/authApi";
 
@@ -26,8 +26,8 @@ const App = (props) => {
           <Route path="/" exact>
             <Feed />
           </Route>
-          <Route path="/post" component={PostStatusUpdate}></Route>
-          <Route path="/map" component={VideoMap}></Route>
+          <Route path="/post" component={Post}></Route>
+          <Route path="/map" component={Map}></Route>
         </Switch>
       </div>
       <footer id="footer" className="has-background-primary has-text-centered">

@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React, { Component } from "react";
 
-import "./PostStatusUpdate.css";
+import "./Post.css";
 
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -9,12 +8,12 @@ import "video.js/dist/video-js.css";
 import RecordRTC from "recordrtc";
 import "webrtc-adapter";
 
-import { uploadVideo } from "./upload";
+import { uploadVideo } from "../upload";
 
 import "videojs-record/dist/css/videojs.record.css";
 import "videojs-record/dist/videojs.record.js";
 
-import captioner from "./captioner";
+import captioner from "../captioner";
 
 const videoJsOptions = {
   controls: true,
@@ -28,7 +27,7 @@ const videoJsOptions = {
   },
 };
 
-class PostStatusUpdate extends Component {
+class Post extends Component {
   constructor(props) {
     super(props);
 
@@ -183,4 +182,4 @@ class PostStatusUpdate extends Component {
   }
 }
 
-export default PostStatusUpdate;
+export default Post;
