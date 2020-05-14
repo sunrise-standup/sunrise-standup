@@ -1,4 +1,4 @@
-const getUserInfo = require("../utils/getUserInfo");
+const userUtil = require("../utils/user");
 
 const {
   generateBlobSASQueryParameters,
@@ -7,15 +7,30 @@ const {
 } = require("@azure/storage-blob");
 
 module.exports = async function (context, req) {
-  const user = getUserInfo(req);
+
+  // the req object contains info about the logged in user
+  // refer to utils/getUserInfo to see how it is parsed
+  const user = userUtil.getUserInfo(req);
 
   const name = user && user.userDetails;
 
-  const token = await generateSASToken(name);
-  context.res = {
-    body: { token, name },
-    headers: { "Content-Type": "application/json" },
-  };
+  // only admin users can upload videos
+  if (userUtil.isAdmin(user)) {
+    const token = await generateSASToken(name);
+    context.res = {
+      body: { token, name },
+      headers: { "Content-Type": "application/json" },
+    };
+  }
+  else {
+    context.res = {
+      status: 403,
+      body: {
+        error: "user not authorized",
+      },
+      headers: { "Content-Type": "application/json" },
+    };
+  }
 };
 
 async function generateSASToken(name) {
@@ -24,6 +39,7 @@ async function generateSASToken(name) {
     process.env.STORAGE_KEY
   );
 
+  // construct the query to get a token that allows uploading
   const containerSAS = generateBlobSASQueryParameters(
     {
       containerName: process.env.STORAGE_CONTAINER,
