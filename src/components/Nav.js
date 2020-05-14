@@ -4,6 +4,8 @@ import "./Nav.css";
 import NavButtons from "./NavButtons";
 
 const Nav = ({ user }) => {
+  // menuActive controls whether or not the menu is shown
+  // it's value is toggled when the hamburger icon is clicked on
   const [menuActive, setMenuActive] = useState(false);
 
   return (

@@ -5,6 +5,8 @@ import {
   ResultReason,
 } from "microsoft-cognitiveservices-speech-sdk";
 
+// The captioner uses Azure Cognitive Services to stream a realtime transcription
+// of audio from the users microphone as they speak
 class Captioner {
   _recognizer;
   _callback;
@@ -41,9 +43,12 @@ class Captioner {
     );
     this._recognizer.startContinuousRecognitionAsync();
 
+    // this function is called when Azure calls back with transcription information
     function recognizerCallback(s, e) {
       const result = e.result;
       const reason = ResultReason[result.reason];
+
+      // Only process items that are speech translations
       if (reason !== "TranslatingSpeech" && reason !== "TranslatedSpeech") {
         return;
       }

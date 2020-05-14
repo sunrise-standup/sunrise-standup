@@ -9,9 +9,13 @@ import Map from "./pages/Map";
 
 import authApi from "./api/authApi";
 
-const App = (props) => {
+const App = () => {
   const [user, setUser] = useState({ name: "" });
+
+  // called then the component is mounted/ready
   useEffect(() => {
+    // this checks to see if a user is logged in and if so, sets
+    // the value of the current logged in user
     async function getLoggedInUser() {
       const user = await authApi.getLoggedInUser();
       setUser(user);

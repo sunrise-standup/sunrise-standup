@@ -21,3 +21,21 @@ $navbar-breakpoint: $tablet;
 .navbar {
   background: transparent;
 }
+
+@media (prefers-color-scheme: dark) {
+  #root,
+  body {
+    background-color: #333;
+  }
+
+  .translation {
+    color: white;
+  }
+
+  .box.box {
+    color: white;
+    background-color: #333;
+    border: 2px solid #e0672a;
+  }
+}
+

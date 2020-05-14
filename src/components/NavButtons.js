@@ -5,6 +5,8 @@ import "./NavButtons.css";
 const NavButtons = ({ user }) => {
   const userCanPost = user && user.isAdmin;
 
+  // The menu icon for post is only displayed if the user is logged in
+  // and is a member of the admin role
   if (userCanPost) {
     return (
       <div>

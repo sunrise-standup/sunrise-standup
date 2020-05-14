@@ -1,19 +1,17 @@
 import React, { Component } from "react";
-
 import "./Post.css";
 
+// videojs powers the recording and encoding of the videos
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
-
+import "videojs-record/dist/videojs.record.js";
+import "videojs-record/dist/css/videojs.record.css";
 import RecordRTC from "recordrtc";
 import "webrtc-adapter";
 
-import { uploadVideo } from "../upload";
-
-import "videojs-record/dist/css/videojs.record.css";
-import "videojs-record/dist/videojs.record.js";
-
-import captioner from "../captioner";
+import appApi from "../api/appApi";
+import storageApi from "../api/storageApi";
+import captioner from "../utils/captioner";
 
 const videoJsOptions = {
   controls: true,
@@ -31,8 +29,6 @@ class Post extends Component {
   constructor(props) {
     super(props);
 
-    this.handleSaveClick = this.handleSaveClick.bind(this);
-
     this.state = {
       isFinished: false,
       isUploading: false,
@@ -43,7 +39,11 @@ class Post extends Component {
     };
 
     this.updateCaption = this.updateCaption.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
   }
+
+
+  // this function updates the UI as the captions are transcribed
   updateCaption(captions) {
     let existingCaptions = this.state.captions;
     const last = existingCaptions[existingCaptions.length - 1];
@@ -58,6 +58,8 @@ class Post extends Component {
       captions: existingCaptions,
     });
   }
+
+  // This gets the users current latitutde/longitude
   getLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setState({
@@ -66,14 +68,16 @@ class Post extends Component {
       });
     });
   }
+
+  // this gets the user's profile image from the Github API
   async getAvatar() {
-    const res = await fetch("/api/getGitHubAvatar");
-    const { image } = await res.json();
+    const image = await appApi.getAvatar();
 
     this.setState({
       avatar: image,
     });
   }
+
   componentDidMount() {
     this.getLocation();
     this.getAvatar();
@@ -100,6 +104,8 @@ class Post extends Component {
     this.player.on("startRecord", () => {
       console.log("started recording!");
       this.setState({ captions: [] });
+
+      // this starts the caption transcription
       captioner.start(this.updateCaption);
     });
 
@@ -128,9 +134,14 @@ class Post extends Component {
       this.player.dispose();
     }
   }
+
+  // save video to Azure Storage
   async handleSaveClick() {
+    // this sets the button to a spinner
     this.setState({ isUploading: true });
-    await uploadVideo(
+
+    // upload the video to Azure Storage
+    await storageApi.uploadVideo(
       this.player.recordedData,
       this.state.captions.map(({ original }) => original).join(" "),
       this.state.longitude,

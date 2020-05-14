@@ -2,22 +2,25 @@ import React, { useEffect } from "react";
 import * as atlas from "azure-maps-control";
 import "./Map.css";
 
-const Map = (props) => {
+const Map = () => {
+
+  // this function is called when this component is mounted/ready
   useEffect(() => {
-    //Initialize a map instance.
+    // initialize a map instance.
     const map = new atlas.Map("map", {
       view: "Auto",
       zoom: 2,
       center: [-50, 30],
-      //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
       authOptions: {
         authType: "subscriptionKey",
         subscriptionKey: process.env.MAP_KEY,
       },
     });
 
-    //Wait until the map resources are ready.
+    // this event handler is called when the Azure Maps object is ready
     map.events.add("ready", async function () {
+
+      // gets the user map locations from the API
       const data = await (await fetch("/api/GetLocations")).json();
 
       await map.imageSprite.add("my-custom-icon", "sunrise-marker.png");

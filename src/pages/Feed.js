@@ -2,25 +2,31 @@ import React, { useState, useEffect } from "react";
 import ReactImageFallback from "react-image-fallback";
 
 import "./Feed.css";
+import appApi from "../api/appApi";
 
 const Feed = () => {
-  const [updates, setUpdates] = useState([]);
+  const [feed, setFeed] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(-1);
 
+  /**
+   * Called when component is ready/mounted
+   */
   useEffect(() => {
-    getUpdate();
+    getFeed();
   }, []);
 
-  async function getUpdate() {
-    const res = await fetch(`/api/GetVideos`);
-    const { updates } = await res.json();
-    setUpdates(updates);
+  /**
+   * Gets video items from feed api endpoint
+   */
+  async function getFeed() {
+    const updates = await appApi.getFeed();
+    setFeed(updates);
   }
 
   const feedItems = (
     <div>
       <div id="bumper"></div>
-      {updates.map(({ name, video, created, caption = "" }, index) => (
+      {feed.map(({ name, video, caption = "" }, index) => (
         <div className="columns is-vcentered feed-item">
           <div className="column line-item is-narrow is-hidden-mobile"></div>
           <div className="column feed-line is-hidden-mobile">
@@ -79,7 +85,7 @@ const Feed = () => {
 
   return (
     <div className="feed">
-      {updates.length > 0 ? (
+      {feed.length > 0 ? (
         feedItems
       ) : (
         <div id="loader">

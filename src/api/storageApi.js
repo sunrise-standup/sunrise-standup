@@ -3,6 +3,7 @@ const {
   AnonymousCredential,
 } = require("@azure/storage-blob");
 
+// this function requests a token that allows for the uploading of a video clip
 async function getSASToken() {
   const sasBuffer = await fetch(`/api/GetSASToken`);
   const { token, name: nameFromApi } = await sasBuffer.json();
@@ -10,7 +11,8 @@ async function getSASToken() {
   return [token, nameFromApi];
 }
 
-export async function uploadVideo(video, caption, longitude, latitude, avatar) {
+// this function uploads a video to Azure Stoage using the Azure Storage JavaScript SDK
+async function uploadVideo(video, caption, longitude, latitude, avatar) {
   const account = process.env.STORAGE_ACCOUNT;
   const [sas, blobName] = await getSASToken();
   const containerName = process.env.STORAGE_CONTAINER;
@@ -39,3 +41,5 @@ export async function uploadVideo(video, caption, longitude, latitude, avatar) {
     uploadBlobResponse.requestId
   );
 }
+
+export default uploadVideo;
