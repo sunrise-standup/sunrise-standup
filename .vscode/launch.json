@@ -1,38 +1,12 @@
 {
   "version": "0.2.0",
-  "compounds": [
-    {
-      "name": "Full Stack App",
-      "configurations": ["Attach to Node Functions", "Launch via NPM"]
-    }
-  ],
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch via NPM",
-      "runtimeExecutable": "npm",
-      "env": {
-        "BROWSER": "none"
-      },
-      "runtimeArgs": ["run-script", "start", "--", ""],
-      "port": 9229,
-      "skipFiles": ["<node_internals>/**"],
-      "preLaunchTask": "Sleepdelay"
-    },
-    {
-      "name": "Attach to Node Functions",
+      "name": "Launch API",
       "type": "node",
       "request": "attach",
       "port": 9229,
       "preLaunchTask": "func: host start"
-    },
-    {
-      "type": "edge",
-      "request": "launch",
-      "name": "Launch Edge",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}"
     }
   ]
 }
