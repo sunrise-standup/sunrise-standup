@@ -12,6 +12,11 @@ class Captioner {
   _callback;
 
   start(callback) {
+
+    if (!process.env.AI_API_KEY) {
+      return;
+    }
+
     this._callback = callback;
 
     const options = {
@@ -77,6 +82,11 @@ class Captioner {
   }
 
   stop() {
+
+    if (!process.env.AI_API_KEY) {
+      return;
+    }
+
     this._recognizer.stopContinuousRecognitionAsync(
       stopRecognizer.bind(this),
       function (err) {

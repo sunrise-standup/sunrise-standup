@@ -1,9 +1,9 @@
 function getUserInfo(req) {
   // This block sets a development user that has rights to upload
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.AZURE_FUNCTIONS_ENVIRONMENT === "Development") {
     return {
       identityProvider: "github",
-      userId: "12abfed2bn1sb3e4das21283",
+      userId: "17baeed9bn1sa3e5dbs24283",
       userDetails: "btholt",
       userRoles: ["admin", "anonymous", "authenticated"],
     };

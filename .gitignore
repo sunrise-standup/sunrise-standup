@@ -17,8 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-# we're cheating here; eventually this should be uncommented and we should uncommit secrets
-# .env
+.env
 
 npm-debug.log*
 yarn-debug.log*

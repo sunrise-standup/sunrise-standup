@@ -34,15 +34,20 @@ const App = () => {
           <Route path="/map" component={Map}></Route>
         </Switch>
       </div>
-      <footer id="footer" className="has-background-primary has-text-centered">
-        <div className="container is-aligned-center">
-          <Link className="button is-medium is-primary" to="/map">
-            <span>
-              <i className="fa fa-map"></i> Map
-            </span>
-          </Link>
-        </div>
-      </footer>
+      {process.env.MAP_KEY ? (
+        <footer
+          id="footer"
+          className="has-background-primary has-text-centered"
+        >
+          <div className="container is-aligned-center">
+            <Link className="button is-medium is-primary" to="/map">
+              <span>
+                <i className="fa fa-map"></i> Map
+              </span>
+            </Link>
+          </div>
+        </footer>
+      ) : null}
     </Router>
   );
 };
