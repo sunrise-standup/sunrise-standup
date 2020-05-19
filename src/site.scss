@@ -1,0 +1,41 @@
+@import url("https://use.fontawesome.com/releases/v5.6.3/css/all.css");
+@import "bulma/sass/utilities/initial-variables";
+@import "bulma/sass/utilities/functions";
+
+$primary: #ff5200;
+$navbar-background-color: #f9f5f1;
+
+$navbar-breakpoint: $tablet;
+
+@import "bulma";
+
+.container {
+  max-width: 1022px;
+  margin: auto;
+}
+
+.navbar-item {
+  height: 54px;
+}
+
+.navbar {
+  background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  #root,
+  body {
+    background-color: #333;
+  }
+
+  .translation {
+    color: white;
+  }
+
+  .box.box {
+    color: white;
+    background-color: #333;
+    border: 2px solid #e0672a;
+  }
+}
+

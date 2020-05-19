@@ -1,0 +1,9 @@
+html,
+body {
+  background-color: #f9f5f1;
+  min-height: 100vh;
+}
+
+#root {
+  background-color: #f9f5f1;
+}

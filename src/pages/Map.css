@@ -1,0 +1,16 @@
+#map {
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin-top: -60px;
+}
+
+#name {
+  padding: 20px 5px;
+  margin: 0px;
+}
+
+#popup {
+  width: 200px;
+}
