@@ -42,7 +42,6 @@ class Post extends Component {
     this.handleSaveClick = this.handleSaveClick.bind(this);
   }
 
-
   // this function updates the UI as the captions are transcribed
   updateCaption(captions) {
     let existingCaptions = this.state.captions;
@@ -106,7 +105,7 @@ class Post extends Component {
       this.setState({ captions: [] });
 
       // this starts the caption transcription
-      captioner.start(this.updateCaption);
+      captioner.start(this.props.ai_key, this.updateCaption);
     });
 
     // user completed recording and stream is available

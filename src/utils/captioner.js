@@ -10,17 +10,19 @@ import {
 class Captioner {
   _recognizer;
   _callback;
+  _key;
 
-  start(callback) {
+  start(key, callback) {
+    this._key = key;
 
-    if (!process.env.AI_API_KEY) {
+    if (!this._key) {
       return;
     }
 
     this._callback = callback;
 
     const options = {
-      key: process.env.AI_API_KEY,
+      key: this._key,
       region: "eastus",
       fromLanguage: "en-US",
       toLanguages: ["en-US"],
@@ -82,8 +84,7 @@ class Captioner {
   }
 
   stop() {
-
-    if (!process.env.AI_API_KEY) {
+    if (!this._key) {
       return;
     }
 
