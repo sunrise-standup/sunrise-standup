@@ -47,7 +47,7 @@
 }
 
 .feed-video {
-  max-width: 730px;
+  width: 730px;
   min-height: 200px;
   padding-bottom: 40px;
 }
