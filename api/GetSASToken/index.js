@@ -14,7 +14,7 @@ module.exports = async function (context, req) {
 
   const name = user && user.userDetails;
 
-  // only admin users can upload videos
+  // only admin users can upload a video
   if (userUtil.isAdmin(user)) {
     const token = await generateSASToken(name);
     context.res = {
