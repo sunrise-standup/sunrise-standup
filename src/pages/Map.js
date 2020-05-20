@@ -79,7 +79,7 @@ const Map = ({ map_key }) => {
         popup.close();
       });
     });
-  }, []);
+  }, [map_key]);
 
   function setPopup(popup, e) {
     //Make sure that the point exists.
