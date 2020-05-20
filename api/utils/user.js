@@ -4,7 +4,7 @@ function getUserInfo(req) {
     return {
       identityProvider: "github",
       userId: "17baeed9bn1sa3e5dbs24283",
-      userDetails: "btholt",
+      userDetails: "testuser",
       userRoles: ["admin", "anonymous", "authenticated"],
     };
   }
@@ -28,7 +28,7 @@ function getUserInfo(req) {
 }
 
 function isAdmin(user) {
-  return user.roles.find((role) => {
+  return user.userRoles.find((role) => {
     return role === "admin";
   });
 }

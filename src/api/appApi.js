@@ -21,4 +21,10 @@ export default {
     const keys = await res.json();
     return keys;
   },
+
+  async getToken() {
+    const sasBuffer = await fetch(`/api/token`);
+    const { token, name: nameFromApi } = await sasBuffer.json();
+    return [token, nameFromApi];
+  },
 };
