@@ -8,16 +8,12 @@ const Feed = () => {
   const [feed, setFeed] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(-1);
 
-  /**
-   * Called when component is ready/mounted
-   */
+  // Called when component is ready/mounted
   useEffect(() => {
     getFeed();
   }, []);
 
-  /**
-   * Gets video items from feed api endpoint
-   */
+  // Gets video items from feed api endpoint
   async function getFeed() {
     const updates = await appApi.getFeed();
     setFeed(updates);
