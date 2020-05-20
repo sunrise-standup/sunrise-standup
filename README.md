@@ -14,11 +14,13 @@ This application levarages several Azure resources...
 
 ## Setup Azure Resources
 
-1. Create a Video Index account [here](https://api-portal.videoindexer.ai/), and make note of your key.
+1. Create a Video Index account and go to your profile page. [here](https://api-portal.videoindexer.ai/), Make note of your primary key.
 
    ![video indexer key screen](images/video-indexer.png)
 
-1. Click the button below which will setup all of the required resources in Azure. You'll need to provide the video indexer key from step 1.
+1. Get a [Github Personal API key](https://github.com/settings/tokens) and make note of it.
+
+1. Click the button below which will setup all of the required resources in Azure. You'll need to provide the video indexer key from step 1. Make sure you change the value of "unique-prefix" to something unique.
 
    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsunrise-standup%2Fsunrise-standup%2Fmaster%2Fazuredeploy.json)
 
@@ -34,13 +36,16 @@ This application levarages several Azure resources...
 
 1. Rename the "api/local.settings.json.rename" to "api/local.settings.json".
 
-The "local.settings.json" file holds all of the keys that the application needs. To get these keys, click on...
+The "local.settings.json" file holds all of the keys that the application needs. You'll need to copy these keys in from the corresponding services in the portal.
 
-| Access key setting   | local.settings.json setting |
-| -------------------- | --------------------------- |
-| Storage account name | STORAGE_ACCOUNT             |
-| Key                  | STORAGE_KEY                 |
-| Connection string    | STORAGE_CONNECTION_STRING   |
+| local.settings.json setting | Azure service      |
+| --------------------------- | ------------------ |
+| STORAGE_ACCOUNT             | Azure Storage      |
+| STORAGE_KEY                 | Azure Storage      |
+| STORAGE_CONNECTION_STRING   | Azure Storage      |
+| MAP_KEY                     | Azure Maps         |
+| AI_API_KEY                  | Cognitive Services |
+| GITHUB_API_KEY              | Github             |
 
 ## Running the application locally
 
