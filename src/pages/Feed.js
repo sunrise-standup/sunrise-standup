@@ -8,16 +8,12 @@ const Feed = () => {
   const [feed, setFeed] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(-1);
 
-  /**
-   * Called when component is ready/mounted
-   */
+  // Called when component is mounted
   useEffect(() => {
     getFeed();
   }, []);
 
-  /**
-   * Gets video items from feed api endpoint
-   */
+  // Gets video items from feed api endpoint
   async function getFeed() {
     const updates = await appApi.getFeed();
     setFeed(updates);
@@ -27,7 +23,7 @@ const Feed = () => {
     <div>
       <div id="bumper"></div>
       {feed.map(({ name, video, caption = "" }, index) => (
-        <div className="columns is-vcentered feed-item">
+        <div className="columns is-vcentered feed-item" key={name}>
           <div className="column line-item is-narrow is-hidden-mobile"></div>
           <div className="column feed-line is-hidden-mobile">
             <div className="time-line"></div>
@@ -35,7 +31,7 @@ const Feed = () => {
           <div className="column feed-video is-narrow">
             <div className="box video-wrapper">
               <h3 className="is-size-4">{name}</h3>
-              <div class="columns">
+              <div className="columns">
                 <div className="column is-narrow">
                   <div
                     className="pic-container"
@@ -44,7 +40,7 @@ const Feed = () => {
                     }
                   >
                     {selectedVideo === index ? (
-                      <video class="video" controls playsInline autoPlay>
+                      <video className="video" controls playsInline autoPlay>
                         <source src={video} type="video/webm"></source>
                         Sorry, your browser doesn't support embedded videos.
                       </video>

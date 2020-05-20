@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import NavButtons from "./NavButtons";
+import LoginButton from "./LoginButton";
 
 const Nav = ({ user }) => {
   // menuActive controls whether or not the menu is shown
@@ -36,6 +37,7 @@ const Nav = ({ user }) => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
+              <LoginButton user={user}></LoginButton>
               <NavButtons user={user}></NavButtons>
             </div>
           </div>

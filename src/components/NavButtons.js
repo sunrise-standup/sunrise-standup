@@ -34,22 +34,9 @@ const NavButtons = ({ user }) => {
             </Link>
           </Route>
         </Switch>
-        <a href="logout" className="button is-secondary is-medium navbutton">
-          <span className="has-text-weight-bold">
-            <i id="videoIcon" className="fa fa-user"></i> Log Out
-          </span>
-        </a>
       </div>
     );
-  } else {
-    return (
-      <a className="button is-primary is-medium navbutton" href="login">
-        <span className="has-text-weight-bold">
-          <i id="videoIcon" className="fa fa-user"></i> Login
-        </span>
-      </a>
-    );
-  }
+  } else return null;
 };
 
 export default NavButtons;
