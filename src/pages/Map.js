@@ -3,7 +3,8 @@ import * as atlas from "azure-maps-control";
 import "./Map.css";
 import appApi from "../api/appApi";
 
-const Map = () => {
+const Map = ({ map_key }) => {
+  console.log(map_key);
 
   // this function is called when this component is mounted/ready
   useEffect(() => {
@@ -14,13 +15,12 @@ const Map = () => {
       center: [-50, 30],
       authOptions: {
         authType: "subscriptionKey",
-        subscriptionKey: process.env.MAP_KEY,
+        subscriptionKey: map_key,
       },
     });
 
     // this event handler is called when the Azure Maps object is ready
     map.events.add("ready", async function () {
-
       // gets the user map locations from the API
       const data = await appApi.getLocations();
 
@@ -79,7 +79,7 @@ const Map = () => {
         popup.close();
       });
     });
-  }, []);
+  }, [map_key]);
 
   function setPopup(popup, e) {
     //Make sure that the point exists.

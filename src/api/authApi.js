@@ -21,7 +21,7 @@ export default {
         user = {
           isLoggedIn: true,
           name: clientPrincipal.userDetails,
-          isAdmin: this.isAdmin(clientPrincipal.roles),
+          isAdmin: this.isAdmin(clientPrincipal.userRoles),
         };
       }
     }

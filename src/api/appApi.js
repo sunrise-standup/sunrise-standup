@@ -14,6 +14,17 @@ export default {
     const res = await fetch("/api/avatar");
     const { image } = await res.json();
     return image;
-  }
-}
+  },
 
+  async getKeys() {
+    const res = await fetch("/api/keys");
+    const keys = await res.json();
+    return keys;
+  },
+
+  async getToken() {
+    const sasBuffer = await fetch(`/api/token`);
+    const { token, name: nameFromApi } = await sasBuffer.json();
+    return [token, nameFromApi];
+  },
+};
