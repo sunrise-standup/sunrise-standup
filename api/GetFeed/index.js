@@ -7,7 +7,7 @@ module.exports = async function getBlobs(context, req) {
   const containerName = process.env.STORAGE_CONTAINER;
   const accountName = process.env.STORAGE_ACCOUNT;
 
-  // create a new instance of the blogServiceClient from the Azure Storage SDK
+  // create a new instance of blogServiceClient from the Azure Storage SDK
   const blobServiceClient = BlobServiceClient.fromConnectionString(
     connectionString
   );
