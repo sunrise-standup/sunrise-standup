@@ -1,0 +1,436 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+      "unique-prefix": {
+          "type": "string",
+          "defaultValue": "coffe001"
+      },
+      "videoindexerkey": {
+          "type": "string"
+      }
+  },
+  "variables": {
+      "location": "[resourceGroup().location]",
+      "storageAccountName": "[concat(parameters('unique-prefix'), 'storage')]",
+      "logicAppName": "[concat(parameters('unique-prefix'), 'logicapp')]",
+      "mapsName": "[concat(parameters('unique-prefix'), 'maps')]",
+      "cognitiveName": "[concat(parameters('unique-prefix'), 'cognitive')]",
+      "mediaIndexerName": "[concat(parameters('unique-prefix'), 'media')]"
+  },
+  "resources": [
+      {
+          "name": "[variables('storageAccountName')]",
+          "type": "Microsoft.Storage/storageAccounts",
+          "apiVersion": "2019-06-01",
+          "tags": {
+              "displayName": "storageaccount1"
+          },
+          "location": "[variables('location')]",
+          "kind": "StorageV2",
+          "sku": {
+              "name": "Premium_LRS",
+              "tier": "Premium"
+          }
+      },
+      {
+          "type": "Microsoft.Web/connections",
+          "apiVersion": "2016-06-01",
+          "location": "[variables('location')]",
+          "name": "azureblob",
+          "dependsOn": [
+              "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          ],
+          "properties": {
+              "api": {
+                  "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureblob')]"
+              },
+              "displayName": "azureblob",
+              "parameterValues": {
+                  "accountName": "[variables('storageAccountName')]",
+                  "accessKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+              }
+          }
+      },
+      {
+          "type": "Microsoft.Web/connections",
+          "name": "videoindexer-v2",
+          "apiVersion": "2016-06-01",
+          "location": "[variables('location')]",
+          "scale": null,
+          "properties": {
+              "displayName": "videoindexer-v2",
+              "parameterValues": {
+                  "api_key": "[parameters('videoindexerkey')]"
+              },
+              "api": {
+                  "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/videoindexer-v2')]"
+              }
+          }
+      },
+      {
+          "name": "[variables('mapsName')]",
+          "type": "Microsoft.Maps/accounts",
+          "apiVersion": "2018-05-01",
+          "location": "global",
+          "tags": {
+          },
+          "sku": {
+              "name": "S0"
+          }
+      },
+      {
+          "type": "Microsoft.CognitiveServices/accounts",
+          "apiVersion": "2017-04-18",
+          "name": "[variables('cognitiveName')]",
+          "location": "[variables('location')]",
+          "sku": {
+              "name": "S0"
+          },
+          "kind": "SpeechServices",
+          "properties": {
+          }
+      },
+      {
+          "type": "Microsoft.Media/mediaservices",
+          "apiVersion": "2015-10-01",
+          "name": "[variables('mediaIndexerName')]",
+          "location": "[variables('location')]",
+          "properties": {
+              "storageAccounts": [
+                  {
+                      "id": "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]",
+                      "isPrimary": true
+                  }
+              ]
+          }
+      },
+      {
+          "type": "Microsoft.Logic/workflows",
+          "apiVersion": "2019-05-01",
+          "name": "[variables('logicAppName')]",
+          "location": "[variables('location')]",
+          "properties": {
+              "state": "Enabled",
+              "definition": {
+                  "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                  "contentVersion": "1.0.0.0",
+                  "parameters": {
+                      "$connections": {
+                          "defaultValue": {
+                          },
+                          "type": "Object"
+                      }
+                  },
+                  "triggers": {
+                      "When_a_blob_is_added_or_modified_(properties_only)": {
+                          "recurrence": {
+                              "frequency": "Minute",
+                              "interval": 3
+                          },
+                          "splitOn": "@triggerBody()",
+                          "metadata": {
+                              "JTJmcmF3": "/raw"
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                  }
+                              },
+                              "method": "get",
+                              "path": "/datasets/default/triggers/batch/onupdatedfile",
+                              "queries": {
+                                  "folderId": "JTJmcmF3",
+                                  "maxFileCount": 10
+                              }
+                          }
+                      }
+                  },
+                  "actions": {
+                      "Create_blob": {
+                          "runAfter": {
+                              "Get_Video_Thumbnail": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "body": "@body('Get_Video_Thumbnail')",
+                              "headers": {
+                                  "Content-Type": "image/jpeg"
+                              },
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                  }
+                              },
+                              "method": "post",
+                              "path": "/datasets/default/files",
+                              "queries": {
+                                  "folderPath": "/thumbnails",
+                                  "name": "@{body('Get_Video_Index')?['name']}.jpg",
+                                  "queryParametersSingleEncoded": true
+                              }
+                          },
+                          "runtimeConfiguration": {
+                              "contentTransfer": {
+                                  "transferMode": "Chunked"
+                              }
+                          }
+                      },
+                      "Get_Account_Access_Token": {
+                          "runAfter": {
+                              "Get_blob_content": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['videoindexer-v2']['connectionId']"
+                                  }
+                              },
+                              "method": "get",
+                              "path": "/auth/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/AccessToken",
+                              "queries": {
+                                  "allowEdit": true
+                              }
+                          }
+                      },
+                      "Get_Video_Thumbnail": {
+                          "runAfter": {
+                              "Parse_JSON": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['videoindexer-v2']['connectionId']"
+                                  }
+                              },
+                              "method": "get",
+                              "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos/@{encodeURIComponent(body('Get_Video_Index')?['id'])}/Thumbnails/@{encodeURIComponent(body('Parse_JSON')?['thumbnailId'])}",
+                              "queries": {
+                                  "accessToken": "@body('Get_Account_Access_Token')"
+                              }
+                          }
+                      },
+                      "Get_blob_content": {
+                          "runAfter": {
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['azureblob']['connectionId']"
+                                  }
+                              },
+                              "method": "get",
+                              "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent(triggerBody()?['Path']))}/content",
+                              "queries": {
+                                  "inferContentType": true
+                              }
+                          }
+                      },
+                      "Parse_JSON": {
+                          "runAfter": {
+                              "Until": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "type": "ParseJson",
+                          "inputs": {
+                              "content": "@body('Get_Video_Index')?['summarizedInsights']",
+                              "schema": {
+                                  "properties": {
+                                      "audioEffects": {
+                                          "type": "array"
+                                      },
+                                      "brands": {
+                                          "type": "array"
+                                      },
+                                      "duration": {
+                                          "properties": {
+                                              "seconds": {
+                                                  "type": "integer"
+                                              },
+                                              "time": {
+                                                  "type": "string"
+                                              }
+                                          },
+                                          "type": "object"
+                                      },
+                                      "emotions": {
+                                          "type": "array"
+                                      },
+                                      "faces": {
+                                          "type": "array"
+                                      },
+                                      "framePatterns": {
+                                          "type": "array"
+                                      },
+                                      "id": {
+                                          "type": "string"
+                                      },
+                                      "keywords": {
+                                          "type": "array"
+                                      },
+                                      "labels": {
+                                          "type": "array"
+                                      },
+                                      "name": {
+                                          "type": "string"
+                                      },
+                                      "namedLocations": {
+                                          "type": "array"
+                                      },
+                                      "namedPeople": {
+                                          "type": "array"
+                                      },
+                                      "privacyMode": {
+                                          "type": "string"
+                                      },
+                                      "sentiments": {
+                                          "type": "array"
+                                      },
+                                      "statistics": {
+                                          "properties": {
+                                              "correspondenceCount": {
+                                                  "type": "integer"
+                                              },
+                                              "speakerLongestMonolog": {
+                                                  "properties": {
+                                                  },
+                                                  "type": "object"
+                                              },
+                                              "speakerNumberOfFragments": {
+                                                  "properties": {
+                                                  },
+                                                  "type": "object"
+                                              },
+                                              "speakerTalkToListenRatio": {
+                                                  "properties": {
+                                                  },
+                                                  "type": "object"
+                                              },
+                                              "speakerWordCount": {
+                                                  "properties": {
+                                                  },
+                                                  "type": "object"
+                                              }
+                                          },
+                                          "type": "object"
+                                      },
+                                      "thumbnailId": {
+                                          "type": "string"
+                                      },
+                                      "thumbnailVideoId": {
+                                          "type": "string"
+                                      },
+                                      "topics": {
+                                          "type": "array"
+                                      }
+                                  },
+                                  "type": "object"
+                              }
+                          }
+                      },
+                      "Until": {
+                          "actions": {
+                              "Get_Video_Index": {
+                                  "runAfter": {
+                                  },
+                                  "type": "ApiConnection",
+                                  "inputs": {
+                                      "host": {
+                                          "connection": {
+                                              "name": "@parameters('$connections')['videoindexer-v2']['connectionId']"
+                                          }
+                                      },
+                                      "method": "get",
+                                      "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos/@{encodeURIComponent(body('Upload_video_and_index')?['id'])}/Index",
+                                      "queries": {
+                                          "accessToken": "@body('Get_Account_Access_Token')",
+                                          "language": "English"
+                                      }
+                                  }
+                              }
+                          },
+                          "runAfter": {
+                              "Upload_video_and_index": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "expression": "@equals(body('Get_Video_Index')?['state'], 'Processed')",
+                          "limit": {
+                              "count": 60,
+                              "timeout": "PT1H"
+                          },
+                          "type": "Until"
+                      },
+                      "Upload_video_and_index": {
+                          "runAfter": {
+                              "Get_Account_Access_Token": [
+                                  "Succeeded"
+                              ]
+                          },
+                          "type": "ApiConnection",
+                          "inputs": {
+                              "body": {
+                                  "$content-type": "multipart/form-data",
+                                  "$multipart": [
+                                      {
+                                          "body": "@body('Get_blob_content')",
+                                          "headers": {
+                                              "Content-Disposition": "form-data; name=\"body\""
+                                          }
+                                      }
+                                  ]
+                              },
+                              "host": {
+                                  "connection": {
+                                      "name": "@parameters('$connections')['videoindexer-v2']['connectionId']"
+                                  }
+                              },
+                              "method": "post",
+                              "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos",
+                              "queries": {
+                                  "accessToken": "@body('Get_Account_Access_Token')",
+                                  "name": "@triggerBody()?['Name']"
+                              }
+                          }
+                      }
+                  },
+                  "outputs": {
+                  }
+              },
+              "parameters": {
+                  "$connections": {
+                      "value": {
+                          "azureblob": {
+                              "connectionId": "[resourceId('Microsoft.Web/connections','azureblob')]",
+                              "connectionName": "azureblob",
+                              "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/azureblob')]"
+                          },
+                          "videoindexer-v2": {
+                              "connectionId": "[resourceId('Microsoft.Web/connections','videoindexer-v2')]",
+                              "connectionName": "videoindexer-v2",
+                              "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/videoindexer-v2')]"
+                          }
+                      }
+                  }
+              }
+
+          },
+          "dependsOn": [
+              "[resourceId('Microsoft.Web/connections','azureblob')]",
+              "[resourceId('Microsoft.Web/connections','videoindexer-v2')]"
+          ]
+      }
+  ]
+}
