@@ -4,35 +4,43 @@ Sunrise Standup is a status update application built as a demo for Build 2020. I
 
 ![sunrise-standup-demo](sunrise.png)
 
+This application levarages several Azure resources...
+
+1. **Azure Storage** for video uploads
+1. **Cognitive Services** for video transcription
+1. **Azure Maps** for the interactive map control
+1. **Video Indexer** to pull thumbnails off of videos
+1. **Logic Apps** to create a thumbnail when a video is uploaded
+
 ## Setup Azure Resources
 
-Before you can run the application, you'll need to setup Azure Storage (for uploading videos) and Azure Maps for the interactive map. You'll need to setup both of those resources and copy the correct keys into the app settings files.
+1. Create a Video Index account [here](https://api-portal.videoindexer.ai/), and make note of your key.
+
+   ![video indexer key screen](images/video-indexer.png)
+
+1. Click the button below which will setup all of the required resources in Azure. You'll need to provide the video indexer key from step 1.
+
+   [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fsunrise-standup%2Fsunrise-standup%2Fmaster%2Fazuredeploy.json)
+
+   ![custom deployment screen in Azure Portal](images/custom-deployment.png)
+
+1. Once finished, the following resources will be deployed...
+
+   ![deployed resources deiplayed in Azure Portal](images/deployed-resources.png)
+
+## Setup application
+
+1. Clone (or Fork and Clone) this repository
 
 1. Rename the "api/local.settings.json.rename" to "api/local.settings.json".
 
-1. Rename the ".env.rename" to ".env"
+The "local.settings.json" file holds all of the keys that the application needs. To get these keys, click on...
 
-### Setup Azure Storage
-
-1. Create a new Azure Storage account.
-
-1. Create two containers - "raw" and "thumbnails". The "raw" folder holds the videos, and the "thumbnails" folder will hold the video thubnails.
-
-1. From the "Access keys" section, copy the following values into the "local.settings.json" file.
-
-   | Access key setting   | local.settings.json setting |
-   | -------------------- | --------------------------- |
-   | Storage account name | STORAGE_ACCOUNT             |
-   | Key                  | STORAGE_KEY                 |
-   | Connection string    | STORAGE_CONNECTION_STRING   |
-
-1. Set the value of "STORAGE_ACCOUNT" in the ".env" file.
-
-### Setup Azure Maps
-
-1. Create a new Azure Map
-
-1. Copy the "Primary key" to the "MAP_KEY" setting of the ".env" file.
+| Access key setting   | local.settings.json setting |
+| -------------------- | --------------------------- |
+| Storage account name | STORAGE_ACCOUNT             |
+| Key                  | STORAGE_KEY                 |
+| Connection string    | STORAGE_CONNECTION_STRING   |
 
 ## Running the application locally
 
@@ -60,7 +68,7 @@ This project can be run anywhere, but VS Code is required for local debugging.
 
 ## Deploying the App to Static Web Apps
 
-1. Create a new Static Web App.
+1. Create a [new Static Web App](https://portal.azure.com/#create/Microsoft.StaticApp).
 
 1. Select the Github repo for this project from the Azure Web Apps create screen.
 
