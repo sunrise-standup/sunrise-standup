@@ -7,6 +7,8 @@
     "STORAGE_CONTAINER": "raw",
     "STORAGE_KEY": "",
     "STORAGE_CONNECTION_STRING": "",
-    "GITHUB_API_KEY": ""
+    "GITHUB_API_KEY": "",
+    "MAP_KEY": "",
+    "AI_API_KEY": ""
   }
 }
