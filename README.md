@@ -18,7 +18,7 @@ This application levarages several Azure resources...
 
    ![video indexer key screen](images/video-indexer.png)
 
-1. Get a [Github Personal API key](https://github.com/settings/tokens) and make note of it.
+1. Get a [Github Personal API key](https://github.com/settings/tokens) and make note of it. You'll need **read:user** permissions.
 
 1. Click the button below which will setup all of the required resources in Azure. You'll need to provide the video indexer key from step 1. Make sure you change the value of "unique-prefix" to something unique.
 
@@ -29,6 +29,8 @@ This application levarages several Azure resources...
 1. Once finished, the following resources will be deployed...
 
    ![deployed resources deiplayed in Azure Portal](images/deployed-resources.png)
+
+1. Go to the Resource Group and select "Output" to display the keys for Sunrise Standup. You'll be using these keys when you setup the application.
 
 ## Setup application
 
