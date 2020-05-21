@@ -30,7 +30,9 @@ This application levarages several Azure resources...
 
    ![deployed resources deiplayed in Azure Portal](images/deployed-resources.png)
 
-1. Go to the Resource Group and select "Output" to display the keys for Sunrise Standup. You'll be using these keys when you setup the application.
+1. Go to the Resource Group and under "Settings", select "Deployments". Select the "Microsoft.Template" item and then select "Outputs" to display the keys needed for the Sunrise Standup. You'll be using these keys when you setup the application.
+
+   ![outputs from resource group](images/outputs.png)
 
 ## Setup application
 
