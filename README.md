@@ -40,16 +40,16 @@ This application levarages several Azure resources...
 
 1. Rename the "api/local.settings.json.rename" to "api/local.settings.json".
 
-The "local.settings.json" file holds all of the keys that the application needs. You'll need to copy these keys in from the corresponding services in the portal.
+The "local.settings.json" file holds all of the keys that the application needs. You'll need to copy these keys in from the corresponding template output in the portal.
 
-| local.settings.json setting | Azure service      |
-| --------------------------- | ------------------ |
-| STORAGE_ACCOUNT             | Azure Storage      |
-| STORAGE_KEY                 | Azure Storage      |
-| STORAGE_CONNECTION_STRING   | Azure Storage      |
-| MAP_KEY                     | Azure Maps         |
-| AI_API_KEY                  | Cognitive Services |
-| GITHUB_API_KEY              | Github             |
+| local.settings.json setting | Template output           |
+| --------------------------- | ------------------------- |
+| STORAGE_ACCOUNT             | storage_account           |
+| STORAGE_KEY                 | storage_key               |
+| STORAGE_CONNECTION_STRING   | storage_connection_string |
+| MAP_KEY                     | map_key                   |
+| AI_API_KEY                  | ai_api_key                |
+| GITHUB_API_KEY              | Github API key            |
 
 ## Running the application locally
 
