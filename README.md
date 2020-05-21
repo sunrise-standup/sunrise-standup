@@ -42,6 +42,7 @@ The "local.settings.json" file holds all of the keys that the application needs.
 
 | local.settings.json setting | Azure service      |
 | --------------------------- | ------------------ |
+| AzureWebJobsStorage         | Azure Storage      |
 | STORAGE_ACCOUNT             | Azure Storage      |
 | STORAGE_KEY                 | Azure Storage      |
 | STORAGE_CONNECTION_STRING   | Azure Storage      |
