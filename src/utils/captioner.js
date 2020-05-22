@@ -23,9 +23,9 @@ class Captioner {
 
     const options = {
       key: this._key,
-      region: "eastus",
-      fromLanguage: "en-US",
-      toLanguages: ["en-US"],
+      region: "northeurope",
+      fromLanguage: "en-GB",
+      toLanguages: ["en-GB"],
     };
 
     const alreadyStarted = !!this._recognizer;
