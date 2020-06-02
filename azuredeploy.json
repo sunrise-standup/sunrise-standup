@@ -16,7 +16,8 @@
         "logicAppName": "[concat(parameters('unique-prefix'), 'logicapp')]",
         "mapsName": "[concat(parameters('unique-prefix'), 'maps')]",
         "cognitiveName": "[concat(parameters('unique-prefix'), 'cognitive')]",
-        "mediaIndexerName": "[concat(parameters('unique-prefix'), 'media')]"
+        "mediaIndexerName": "[concat(parameters('unique-prefix'), 'media')]",
+        "EndpointSuffix" : "core.windows.net"
     },
     "resources": [
         {
@@ -495,7 +496,7 @@
         },
         "storage_connection_string": {
             "type": "string",
-            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value)]"
+            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=', variables('EndpointSuffix'))]"
         },
         "ai_api_endpoint": {
             "type": "string",
