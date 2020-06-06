@@ -86,11 +86,7 @@
                                 "[parameters('staticwebapp')]"
                             ],
                             "allowedMethods": [
-                                "DELETE",
                                 "GET",
-                                "HEAD",
-                                "MERGE",
-                                "POST",
                                 "OPTIONS",
                                 "PUT"
                             ],
@@ -99,7 +95,15 @@
                                 ""
                             ],
                             "allowedHeaders": [
-                                ""
+                                "content-type",
+                                "x-ms-blob-content-type",
+                                "x-ms-blob-type",
+                                "x-ms-client-request-id",
+                                "x-ms-meta-avatar",
+                                "x-ms-meta-caption",
+                                "x-ms-meta-latitude",
+                                "x-ms-meta-longitude",
+                                "x-ms-version"
                             ]
                         }                        
                     ]
