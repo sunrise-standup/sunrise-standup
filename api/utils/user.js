@@ -28,7 +28,7 @@ function getUserInfo(req) {
 }
 
 function isAdmin(user) {
-  return user.userRoles.find((role) => {
+  return user && user.userRoles.find((role) => {
     return role === "admin";
   });
 }
