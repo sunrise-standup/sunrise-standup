@@ -7,8 +7,24 @@
             "defaultValue": "coffe001"
         },
         "videoindexerkey": {
-            "type": "string"
-        }
+            "type": "string",
+			"metadata": {
+				  "description": "Enter your Video Indexer API KEY (from https://api-portal.videoindexer.ai/developer)"
+			}			
+        },
+        "videoindexaccountid": {
+            "type": "string",
+			"metadata": {
+				  "description": "Enter your Video Indexer ACCOUNT ID (from https://www.videoindexer.ai/settings/account)"
+			}
+        },
+        "staticwebapp": {
+            "type": "string",
+            "defaultValue": "https://sunrise-standup.azurestaticapps.net",
+			"metadata": {
+				  "description": "Enter the URL of your Static Web App"
+			}
+        }	        	
     },
     "variables": {
         "location": "[resourceGroup().location]",
@@ -16,7 +32,8 @@
         "logicAppName": "[concat(parameters('unique-prefix'), 'logicapp')]",
         "mapsName": "[concat(parameters('unique-prefix'), 'maps')]",
         "cognitiveName": "[concat(parameters('unique-prefix'), 'cognitive')]",
-        "mediaIndexerName": "[concat(parameters('unique-prefix'), 'media')]"
+        "mediaIndexerName": "[concat(parameters('unique-prefix'), 'media')]",
+        "EndpointSuffix" : "core.windows.net"
     },
     "resources": [
         {
@@ -63,7 +80,32 @@
                             "allowedHeaders": [
                                 ""
                             ]
-                        }
+                        },
+                        {
+                            "allowedOrigins": [
+                                "[parameters('staticwebapp')]"
+                            ],
+                            "allowedMethods": [
+                                "GET",
+                                "OPTIONS",
+                                "PUT"
+                            ],
+                            "maxAgeInSeconds": 0,
+                            "exposedHeaders": [
+                                ""
+                            ],
+                            "allowedHeaders": [
+                                "content-type",
+                                "x-ms-blob-content-type",
+                                "x-ms-blob-type",
+                                "x-ms-client-request-id",
+                                "x-ms-meta-avatar",
+                                "x-ms-meta-caption",
+                                "x-ms-meta-latitude",
+                                "x-ms-meta-longitude",
+                                "x-ms-version"
+                            ]
+                        }                        
                     ]
                 }
             }
@@ -74,7 +116,10 @@
             "name": "[concat(variables('storageAccountName'), '/default/thumbnails')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]"
-            ]
+            ],
+            "properties": {
+                "publicAccess": "Container"
+            }            
         },
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
@@ -82,7 +127,10 @@
             "name": "[concat(variables('storageAccountName'), '/default/raw')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]"
-            ]
+            ],
+            "properties": {
+                "publicAccess": "Container"
+            }            
         },
         {
             "type": "Microsoft.Web/connections",
@@ -245,7 +293,7 @@
                                     }
                                 },
                                 "method": "get",
-                                "path": "/auth/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/AccessToken",
+                                "path": "[concat('/auth/@{encodeURIComponent(''',variables('location'),''')}/Accounts/@{encodeURIComponent(''',parameters('videoindexaccountid'),''')}/AccessToken')]",
                                 "queries": {
                                     "allowEdit": true
                                 }
@@ -265,7 +313,7 @@
                                     }
                                 },
                                 "method": "get",
-                                "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos/@{encodeURIComponent(body('Get_Video_Index')?['id'])}/Thumbnails/@{encodeURIComponent(body('Parse_JSON')?['thumbnailId'])}",
+                                "path": "[concat('/@{encodeURIComponent(''',variables('location'),''')}/Accounts/@{encodeURIComponent(''',parameters('videoindexaccountid'),''')}/Videos/@{encodeURIComponent(body(''Get_Video_Index'')?[''id''])}/Thumbnails/@{encodeURIComponent(body(''Parse_JSON'')?[''thumbnailId''])}')]",
                                 "queries": {
                                     "accessToken": "@body('Get_Account_Access_Token')"
                                 }
@@ -308,7 +356,7 @@
                                         "duration": {
                                             "properties": {
                                                 "seconds": {
-                                                    "type": "integer"
+                                                    "type": "number"
                                                 },
                                                 "time": {
                                                     "type": "string"
@@ -404,7 +452,7 @@
                                             }
                                         },
                                         "method": "get",
-                                        "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos/@{encodeURIComponent(body('Upload_video_and_index')?['id'])}/Index",
+                                        "path": "[concat('/@{encodeURIComponent(''',variables('location'),''')}/Accounts/@{encodeURIComponent(''',parameters('videoindexaccountid'),''')}/Videos/@{encodeURIComponent(body(''Upload_video_and_index'')?[''id''])}/Index')]",
                                         "queries": {
                                             "accessToken": "@body('Get_Account_Access_Token')",
                                             "language": "English"
@@ -449,7 +497,7 @@
                                     }
                                 },
                                 "method": "post",
-                                "path": "/@{encodeURIComponent('westus2')}/Accounts/@{encodeURIComponent('4830b7cc-cfa5-4a67-b487-1feea97955fc')}/Videos",
+                                "path": "[concat('/@{encodeURIComponent(''',variables('location'),''')}/Accounts/@{encodeURIComponent(''',parameters('videoindexaccountid'),''')}/Videos')]",
                                 "queries": {
                                     "accessToken": "@body('Get_Account_Access_Token')",
                                     "name": "@triggerBody()?['Name']"
@@ -495,7 +543,7 @@
         },
         "storage_connection_string": {
             "type": "string",
-            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value)]"
+            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value,';EndpointSuffix=', variables('EndpointSuffix'))]"
         },
         "ai_api_endpoint": {
             "type": "string",
