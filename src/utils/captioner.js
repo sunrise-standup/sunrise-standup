@@ -23,7 +23,7 @@ class Captioner {
 
     const options = {
       key: this._key,
-      region: "westeu",
+      region: "westeurope",
       fromLanguage: "en-US",
       toLanguages: ["en-US"],
     };
