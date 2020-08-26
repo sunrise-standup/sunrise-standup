@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link, Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
-import Nav from "./components/Nav";
-import Feed from "./pages/Feed";
-import Post from "./pages/Post";
-import Map from "./pages/Map";
+import Nav from "./Nav";
+import Feed from "../pages/Feed";
+import Post from "../pages/Post";
+import Map from "../pages/Map";
 
-import authApi from "./api/authApi";
-import appApi from "./api/appApi";
+import * as microsoftTeams from "@microsoft/teams-js";
+import Privacy from "./Privacy";
+import TermsOfUse from "./TermsOfUse";
+import TabConfig from './TabConfig';
+import Tab from './Tab-bkp';
+
+import authApi from "../api/authApi";
+import appApi from "../api/appApi";
 
 const App = () => {
   const [user, setUser] = useState({ name: "" });
@@ -48,6 +54,8 @@ const App = () => {
             path="/map"
             render={(props) => <Map {...props} map_key={keys.map_key} />}
           />
+          <Route exact path="/tab" component={Feed} />
+          <Route exact path="/config" component={TabConfig} />          
         </Switch>
       </div>
       <footer id="footer" className="has-background-primary has-text-centered">
@@ -70,11 +78,20 @@ const App = () => {
   );
 
   // wait for the applications keys to load before loading the app
-  if (keys) {
-    return app;
-  } else {
-    return spinner;
+  
+  if (microsoftTeams) {
+
+    // Initialize the Microsoft Teams SDK
+    microsoftTeams.initialize();
+
+    if (keys) {
+      return app;
+    } else {
+      return spinner;
+    }
+
   }
+
 };
 
 export default App;

@@ -2,9 +2,11 @@
   "name": "sunrise-standup",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:7071",
+  "proxy": "https://orange-grass-0dd3e1003.azurestaticapps.net/",
   "dependencies": {
     "@azure/storage-blob": "^12.1.1",
+    "@fluentui/react-northstar": "^0.51.0",
+    "@microsoft/teams-js": "^1.7.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
