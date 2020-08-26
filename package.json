@@ -2,7 +2,7 @@
   "name": "sunrise-standup",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://orange-grass-0dd3e1003.azurestaticapps.net/",
+  "proxy": "http://localhost:7071",
   "dependencies": {
     "@azure/storage-blob": "^12.1.1",
     "@fluentui/react-northstar": "^0.51.0",
