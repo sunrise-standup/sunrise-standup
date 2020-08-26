@@ -43,6 +43,7 @@ const App = () => {
       <div className="container main">
         <Nav user={user}></Nav>
         <Switch>
+          <Route exact path="/tab" component={Feed} />
           <Route path="/" exact>
             <Feed />
           </Route>
@@ -53,9 +54,7 @@ const App = () => {
           <Route
             path="/map"
             render={(props) => <Map {...props} map_key={keys.map_key} />}
-          />
-          <Route exact path="/tab" component={Feed} />
-          <Route exact path="/config" component={TabConfig} />          
+          />         
         </Switch>
       </div>
       <footer id="footer" className="has-background-primary has-text-centered">
