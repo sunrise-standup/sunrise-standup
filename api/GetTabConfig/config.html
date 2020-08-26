@@ -1,0 +1,24 @@
+<head>
+<script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+</head>
+<body>
+    <script>
+        microsoftTeams.initialize();
+        microsoftTeams.settings.setSettings(
+                {
+                    "contentUrl": "https://orange-grass-0dd3e1003.azurestaticapps.net/tab",
+                    "entityId:" : "sunrisestandup-gtcsm",
+                    "suggestedDisplayName?" : "Sunrise Standup",
+                    "websiteUrl?" : "https://orange-grass-0dd3e1003.azurestaticapps.net"
+                }
+            );
+        microsoftTeams.settings.setValidityState(true);
+    </script>
+    <div>
+        <h1>Tab Configuration</h1>
+        <div>
+            This is where you will add your tab configuration options the user
+            can choose when the tab is added to your team/group chat.            
+        </div>
+    </div>
+</body>
