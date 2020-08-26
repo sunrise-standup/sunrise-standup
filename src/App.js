@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Link, Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
-import Nav from "./Nav";
-import Feed from "../pages/Feed";
-import Post from "../pages/Post";
-import Map from "../pages/Map";
+import Nav from "./components/Nav";
+import Feed from "./pages/Feed";
+import Post from "./pages/Post";
+import Map from "./pages/Map";
 
 import * as microsoftTeams from "@microsoft/teams-js";
-import Privacy from "./Privacy";
-import TermsOfUse from "./TermsOfUse";
-import TabConfig from './TabConfig';
-import Tab from './Tab-bkp';
+import Privacy from "./components/Privacy";
+import TermsOfUse from "./components/TermsOfUse";
+import TabConfig from './components/TabConfig';
+import Tab from './components/Tab-bkp';
 
-import authApi from "../api/authApi";
-import appApi from "../api/appApi";
+import authApi from "./api/authApi";
+import appApi from "./api/appApi";
 
 const App = () => {
   const [user, setUser] = useState({ name: "" });

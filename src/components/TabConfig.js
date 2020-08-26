@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 
 import React from 'react';
-import './App.css';
+import '../App.css';
 import * as microsoftTeams from "@microsoft/teams-js";
 
 /**
