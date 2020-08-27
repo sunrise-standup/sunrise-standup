@@ -1,9 +1,18 @@
 <head>
 <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+function GetUPN () {
+    microsoftTeams.getContext((context) => { 
+        if (context && context.userPrincipalName) {
+            return context.userPrincipalNam; 
+        } else
+            return "Ghost";    
+    });
+};
 </head>
 <body>
     <script>
         microsoftTeams.initialize();
+
 /**        microsoftTeams.settings.setSettings(
                 {
                     "contentUrl": "https://orange-grass-0dd3e1003.azurestaticapps.net/tab",
@@ -14,10 +23,21 @@
             );
 **/        microsoftTeams.settings.setValidityState(true);
     </script>
+
     <div>
         <h1>Sunrise Standup</h1>
+        <div>
+         Hi <span id="UPN"></span> !
+        </div>
+        <br>
         <div>
             Click on the "Save" button to validate the installation of your app.            
         </div>
     </div>
+
+    <script type="text/javascript">
+        const UPN = GetUPN();
+        document.getElementById("UPN").innerHTML = UPN;
+    </script>
+
 </body>
