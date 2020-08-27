@@ -1,13 +1,15 @@
 <head>
-<script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
-function GetUPN () {
-    microsoftTeams.getContext((context) => { 
-        if (context && context.userPrincipalName) {
-            return context.userPrincipalNam; 
-        } else
-            return "Ghost";    
-    });
-};
+    <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+    <script>
+        function GetUPN () {
+        microsoftTeams.getContext((context) => { 
+            if (context && context.userPrincipalName) {
+                return context.userPrincipalNam; 
+            } else
+                return "Ghost";    
+            });
+        };
+    </script>
 </head>
 <body>
     <script>
