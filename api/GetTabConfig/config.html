@@ -6,15 +6,15 @@
         microsoftTeams.initialize();
 
         function GetUPN () {
-        microsoftTeams.getContext((context) => { 
-            if (context && context.userPrincipalName) {
-                return context.userPrincipalNam; 
-            } else
-                return "Ghost";    
-            });
+            microsoftTeams.getContext((context) => { 
+                if (context && context.userPrincipalName) {
+                    return context.userPrincipalNam; 
+                } else
+                    return "Ghost";    
+                });
         };        
 
-/**        microsoftTeams.settings.setSettings(
+        microsoftTeams.settings.setSettings(
                 {
                     "contentUrl": "https://orange-grass-0dd3e1003.azurestaticapps.net/tab",
                     "entityId:" : "sunrisestandup-gtcsm",
@@ -22,7 +22,9 @@
                     "websiteUrl?" : "https://orange-grass-0dd3e1003.azurestaticapps.net"
                 }
             );
-**/        microsoftTeams.settings.setValidityState(true);
+
+        microsoftTeams.settings.setValidityState(true);
+
     </script>
 
     <div>
