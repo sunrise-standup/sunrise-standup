@@ -14,20 +14,18 @@ const LiveButton = ({ user }) => {
 
   return (
     <span>
-      <a
+      <button
         className="button is-primary is-medium navbutton"
-        href="#"
         onClick={goLive}
       >
-        <span className="has-text-weight-bold">
-          <i id="videoIcon" className="fa fa-user"></i> Go Live
-        </span>
-      </a>
+        Go Live
+      </button>
       <div className={"modal " + (isActive ? "is-active" : "")}>
         <div className="modal-background"></div>
         <div className="modal-content">
           <div class="frame">
             <iframe
+              title="ACS"
               allow="camera;microphone"
               class="frame"
               width="100%"
