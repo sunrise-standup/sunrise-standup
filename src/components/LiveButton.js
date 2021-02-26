@@ -18,7 +18,7 @@ const LiveButton = ({ user }) => {
         className="button is-primary is-medium navbutton"
         onClick={goLive}
       >
-        Go Live
+        Go Live!
       </button>
       <div className={"modal " + (isActive ? "is-active" : "")}>
         <div className="modal-background"></div>
