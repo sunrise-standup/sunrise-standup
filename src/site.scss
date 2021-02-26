@@ -7,6 +7,8 @@ $navbar-background-color: #f9f5f1;
 
 $navbar-breakpoint: $tablet;
 
+$modal-content-width: calc(100vw - 80px);
+
 @import "bulma";
 
 .container {
@@ -38,4 +40,3 @@ $navbar-breakpoint: $tablet;
     border: 2px solid #e0672a;
   }
 }
-
