@@ -26,7 +26,7 @@ const Nav = ({ user }) => {
           className="button navbar-burger burger"
           aria-label="menu"
           aria-expanded="false"
-          onClick={() => setMenuActive(menuActive)}
+          onClick={() => setMenuActive(!menuActive)}
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
