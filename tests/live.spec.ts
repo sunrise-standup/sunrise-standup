@@ -15,7 +15,7 @@ it("clicks on go live button", async ({ page, isMobile }) => {
   ]);
 
   if (isMobile) {
-    await page.click('button#burger')
+    await page.click('button#burger');
   }
 
   await page.click('"Go Live"');

@@ -3,10 +3,10 @@ name: Playwright end-to-end tests
 on:
   push:
     branches:
-    - master
+    - "*"
   pull_request:
     branches:
-    - master
+    - "*"
 
 jobs:
   run_playwright_tests_job:
@@ -19,11 +19,11 @@ jobs:
         name: Setup CI for browser tests
       - name: Install dependencies
         run: npm install
-      - name: "[Desktop/Chromium] Run tests"
+      - name: "[Desktop/Chromium] Run Playwright tests"
         run: npx folio -p browserName=chromium -p screenshotOnFailure
         env:
           APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
-      - name: "[Mobile/Safari] Run tests"
+      - name: "[Mobile/Safari] Run Playwright tests"
         run: npx folio -p browserName=webkit -p screenshotOnFailure -p isMobile
         env:
           APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
