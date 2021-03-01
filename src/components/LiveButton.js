@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LiveButton.css";
 
 const LiveButton = ({ user }) => {
-  const userisLoggedIn = user && user.isLoggedIn;
+  const userisLoggedIn = true;
   const [isActive, setIsActive] = useState(false);
 
   function goLive() {
