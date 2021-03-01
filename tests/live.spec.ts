@@ -9,11 +9,16 @@ it("loads the app", async ({ page, isMobile }) => {
 });
 
 it("clicks on go live button", async ({ page, isMobile }) => {
-  await page.goto(process.env.APP_URL);
   await Promise.all([
     page.waitForResponse(acsFrameUrl),
-    page.click('"Go Live"')
+    page.goto(process.env.APP_URL)
   ]);
+
+  if (isMobile) {
+    await page.click('button#burger')
+  }
+
+  await page.click('"Go Live"');
   await page.waitForSelector('.frame');
   const acsFrame = page.frame({ url: /.*gentle-pond-06daa3a1e.azurestaticapps.net.*/ });
   await acsFrame.waitForSelector('input[placeholder="Enter your name"]');
