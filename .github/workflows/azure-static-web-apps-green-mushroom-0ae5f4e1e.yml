@@ -41,26 +41,3 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_MUSHROOM_0AE5F4E1E }}
           action: "close"
 
-  run_playwright_tests_job:
-    runs-on: ubuntu-latest
-    name: Run Playwright tests
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - uses: microsoft/playwright-github-action@v1
-        name: Setup CI for browser tests
-      - name: Install dependencies
-        run: npm install
-      - name: "[Desktop/Chromium] Run tests"
-        run: npx folio -p browserName=chromium -p screenshotOnFailure
-        env:
-          APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
-      - name: "[Mobile/Safari] Run tests"
-        run: npx folio -p browserName=webkit -p screenshotOnFailure -p isMobile
-        env:
-          APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
-      - uses: actions/upload-artifact@v2
-        if: ${{ always() }}
-        with:
-          name: test-artifacts
-          path: test-results
