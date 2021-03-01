@@ -1,3 +1,5 @@
+name: Playwright end-to-end tests
+
 on:
   push:
     branches:
