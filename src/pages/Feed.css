@@ -117,7 +117,7 @@
 
 @media screen and (max-width: 768px) {
   .feed-video {
-    max-width: 500px;
+    max-width: 100%;
     min-width: inherit;
     margin: auto;
   }
