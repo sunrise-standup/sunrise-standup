@@ -13,9 +13,7 @@ builder.contextOptions.override(async ({ contextOptions, isMobile, browserName }
       ...device
     });
   } else {
-    await runTest({
-      ...contextOptions,
-    });
+    await runTest({ ...contextOptions });
   }
 });
 

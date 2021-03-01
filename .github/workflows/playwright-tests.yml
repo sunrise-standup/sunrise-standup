@@ -27,7 +27,6 @@ jobs:
         run: npx folio -p browserName=webkit -p screenshotOnFailure -p isMobile
         env:
           APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
-          DEBUG: "pw:api"
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
