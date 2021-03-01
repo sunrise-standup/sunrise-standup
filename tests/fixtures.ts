@@ -10,10 +10,14 @@ builder.contextOptions.override(async ({ contextOptions, isMobile, browserName }
     const device = browserName === 'webkit' ? devices['iPhone 11'] : devices['Pixel 2'];
     await runTest({
       ...contextOptions,
-      ...device
+      ...device,
+      permissions: ['camera', 'microphone']
     });
   } else {
-    await runTest({ ...contextOptions });
+    await runTest({
+      ...contextOptions,
+      permissions: ['camera', 'microphone']
+    });
   }
 });
 
