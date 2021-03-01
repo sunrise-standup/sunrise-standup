@@ -11,12 +11,12 @@ builder.contextOptions.override(async ({ contextOptions, isMobile, browserName }
     await runTest({
       ...contextOptions,
       ...device,
-      permissions: ['camera', 'microphone']
+      permissions: ['microphone']
     });
   } else {
     await runTest({
       ...contextOptions,
-      permissions: ['camera', 'microphone']
+      permissions: ['microphone']
     });
   }
 });
