@@ -40,3 +40,17 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_MUSHROOM_0AE5F4E1E }}
           action: "close"
+
+  run_playwright_tests_job:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: microsoft/playwright-github-action@v1
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npx folio
+        env:
+          APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
