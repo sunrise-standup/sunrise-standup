@@ -36,7 +36,7 @@ const Nav = ({ user }) => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <LiveButton user={user}></LiveButton>
+              <LoginButton user={user}></LoginButton>
               <NavButtons user={user}></NavButtons>
             </div>
           </div>
