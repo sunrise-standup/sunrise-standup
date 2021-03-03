@@ -15,18 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - uses: microsoft/playwright-github-action@v1
-        name: Setup CI for browser tests
+      - name: Setup CI for browser tests
+        uses: microsoft/playwright-github-action@v1
       - name: Install dependencies
         run: npm install
+      - name: Run dev server
+        run: npm start & npx wait-on http://localhost:3000
       - name: "[Desktop/Chromium] Run Playwright tests"
         run: npx folio -p browserName=chromium -p screenshotOnFailure
         env:
-          APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
+          APP_URL: http://localhost:3000
       - name: "[Mobile/Safari] Run Playwright tests"
         run: npx folio -p browserName=webkit -p screenshotOnFailure -p isMobile
         env:
-          APP_URL: https://green-mushroom-0ae5f4e1e-32.westus2.azurestaticapps.net
+          APP_URL: http://localhost:3000
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
