@@ -1,6 +1,6 @@
 import { it, expect } from "./fixtures";
 
-const acsFrameUrl = /.*gentle-pond-06daa3a1e.azurestaticapps.net.*/;
+const acsFrameUrl = /.*sunrise-standup-sync.azurewebsites.net.*/;
 
 it("loads the app", async ({ page, isMobile }) => {
   await page.goto(process.env.APP_URL);
@@ -20,6 +20,6 @@ it("clicks on go live button", async ({ page, isMobile }) => {
 
   await page.click('"Go Live"');
   await page.waitForSelector('.frame');
-  const acsFrame = page.frame({ url: /.*gentle-pond-06daa3a1e.azurestaticapps.net.*/ });
+  const acsFrame = page.frame({ url: /.*sunrise-standup-sync.azurewebsites.net.*/ });
   await acsFrame.waitForSelector('input[placeholder="Enter your name"]');
 });

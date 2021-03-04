@@ -32,7 +32,7 @@ const LiveButton = ({ user }) => {
                 class="frame"
                 width="100%"
                 height="100%"
-                src="https://gentle-pond-06daa3a1e.azurestaticapps.net/?groupId=b4146fc0-77bb-11eb-a2f3-af18900971d5"
+                src="https://sunrise-standup-sync.azurewebsites.net/?groupId=b4146fc0-77bb-11eb-a2f3-af18900971d5"
               ></iframe>
             </div>
           </div>
