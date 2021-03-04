@@ -43,6 +43,7 @@
   "devDependencies": {
     "@playwright/test": "^0.191.0",
     "dotenv-webpack": "^1.7.0",
-    "react-app-rewired": "^2.1.5"
+    "react-app-rewired": "^2.1.5",
+    "wait-on": "^5.2.1"
   }
 }
