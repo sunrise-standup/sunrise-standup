@@ -82,3 +82,27 @@ This project can be run anywhere, but VS Code is required for local debugging.
 1. Select the Github repo for this project from the Azure Web Apps create screen.
 
 For more information on Static Web Apps, check out the [Static Web Apps documentation](https://aka.ms/swadocs).
+
+### Configuring Application Settings
+
+The first time the app is deployed to Static Web Apps, you will need to configure Application Settings in the Azure Portal for the API Azure Functions to work properly.
+
+1. In the Azure Portal, navigate to the Static Web App resource you just created
+
+1. On the left hand menu, in the "Settings" section, click on "Configuration"
+
+1. Add Application Settings for the six key/value pairs updated in your `local.settings.json` file during setup
+
+### Enabling Video Posting
+
+For users to have the option to record and upload videos, they must be in the "admin" role for the app.
+
+1. In the Azure Portal, navigate again to the Static Web App resource you created
+
+1. On the left hand menu, in the "Settings" section, click on "Role management" and then the "Invite" button
+
+1. Choose "GitHub" as the Authentication Provider, provide a GitHub username, specify "admin" as the Role and then click the "Generate" button
+
+1. Share the generated invite link with the user
+
+Once the invite link has been used, the specified user will be in the "admin" role for the app and will have the option to record and upload a video.
