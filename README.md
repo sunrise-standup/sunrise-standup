@@ -1,4 +1,4 @@
-# Sunrise Standup
+# Sunrise Standup!!
 
 Sunrise Standup is a status update application built as a demo for Build 2020. It allows users to submit a 15 second status update video clip and displays those clips in order by date in a feed. The user's location is recorded and displayed on an interactive map.
 
