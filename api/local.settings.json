@@ -1,0 +1,14 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "node",
+    "STORAGE_ACCOUNT": "coffeeimage",
+    "STORAGE_CONTAINER": "raw",
+    "STORAGE_KEY": "RC7i6iFGBkznXx1gJjGTFyfd0JClxKB1hv+XH1m/c1bem25cJuWWUOqRduwEgXDyVM69GsvD5MFQh3m4sHBv2w==",
+    "STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=coffeeimage;AccountKey=RC7i6iFGBkznXx1gJjGTFyfd0JClxKB1hv+XH1m/c1bem25cJuWWUOqRduwEgXDyVM69GsvD5MFQh3m4sHBv2w==;EndpointSuffix=core.windows.net",
+    "GITHUB_API_KEY": "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",
+    "MAP_KEY": "s-OwOWEAAVQH3rqkAAi4An6Np-wBaIXG_84u-7CTFdM",
+    "AI_API_KEY": "a93bf93fbe0a4f6ea36ebeb7f0220822"
+  }
+}

@@ -4,7 +4,7 @@
     "parameters": {
         "unique-prefix": {
             "type": "string",
-            "defaultValue": "coffe001"
+            "defaultValue": "coffestandup31353"
         },
         "videoindexerkey": {
             "type": "string"

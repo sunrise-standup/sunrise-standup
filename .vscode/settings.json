@@ -7,5 +7,11 @@
     "azureFunctions.preDeployTask": "npm prune",
     "staticWebApps.appSubpath": "/",
     "staticWebApps.apiSubpath": "api",
-    "staticWebApps.outputSubpath": "build"
+    "staticWebApps.outputSubpath": "build",
+    "markdownlint.config": {
+        "MD028": false,
+        "MD025": {
+            "front_matter_title": ""
+        }
+    }
 }
