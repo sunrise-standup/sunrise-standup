@@ -23,7 +23,8 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:e2e": "playwright test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.16.0",
     "dotenv-webpack": "^1.7.0",
     "react-app-rewired": "^2.1.5",
     "wait-on": "^5.2.1"
