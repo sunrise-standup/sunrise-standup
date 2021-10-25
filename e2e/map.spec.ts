@@ -6,7 +6,7 @@ test('map', async ({ page }) => {
   await page.goto('https://www.sunrisestandup.com/');
 
   // Click text=Map
-  await page.click('text=Maps');
+  await page.click('text=Map');
   await expect(page).toHaveURL('https://www.sunrisestandup.com/map');
 
 });
