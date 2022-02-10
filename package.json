@@ -11,7 +11,7 @@
     "azure-maps-control": "^2.0.25",
     "bulma": "^0.8.1",
     "microsoft-cognitiveservices-speech-sdk": "^1.11.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-image-fallback": "^8.0.0",
